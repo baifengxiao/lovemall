@@ -2,17 +2,17 @@
 
 ### Linux目录结构
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685957995827-d257c5fc-12cb-4218-b50f-a91d4a3434c3.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685957995827-d257c5fc-12cb-4218-b50f-a91d4a3434c3.png)
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958004332-b8c33d45-53a7-42d9-af1d-dd2fc668d6ea.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958004332-b8c33d45-53a7-42d9-af1d-dd2fc668d6ea.png)
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958013702-73d499b1-7cbb-42eb-b31b-69f4a9745035.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958013702-73d499b1-7cbb-42eb-b31b-69f4a9745035.png)
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958027026-eac16b31-478e-4417-af95-60c049d3e832.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958027026-eac16b31-478e-4417-af95-60c049d3e832.png)
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958037268-91c56284-8c1e-4bcc-9b29-75415c12645e.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958037268-91c56284-8c1e-4bcc-9b29-75415c12645e.png)
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958047048-64826d9f-4e1e-4a80-a006-a251af06eab6.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958047048-64826d9f-4e1e-4a80-a006-a251af06eab6.png)
 
 ## 第2章 VI/VIM编辑器
 
@@ -33,7 +33,7 @@
 | G                           | **移动到页尾（最后一行）** |
 | 数字+G（先输入数字，在按G） | **移动到目标行**           |
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958372931-f3c10c6c-fc19-4d91-b78b-bf5f5dca52c4.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958372931-f3c10c6c-fc19-4d91-b78b-bf5f5dca52c4.png)
 
 ### 2.2 编辑模式
 
@@ -68,7 +68,7 @@
 
 ### 2.4 模式间转换
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958509549-50914995-d3ed-446b-affd-e76085afaff3.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958509549-50914995-d3ed-446b-affd-e76085afaff3.png)
 
 ## 第3章 网络配置和系统管理操作
 
@@ -78,13 +78,13 @@
 
 #### 2）修改ip地址
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958788501-272eb16f-6151-4940-ba74-f44b630159cb.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958788501-272eb16f-6151-4940-ba74-f44b630159cb.png)
 
 
 
 #### 3）查看网关
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958811598-05e1ba02-482e-4416-86e0-1e43666977b9.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958811598-05e1ba02-482e-4416-86e0-1e43666977b9.png)
 
 ### 3.2 配置虚拟机ip地址
 
@@ -96,7 +96,7 @@ ifconfig :network interfaces configuring网络接口配置
 
 ifconfig
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685958709091-e37b91da-f4f5-4dbb-b000-89dc42456807.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685958709091-e37b91da-f4f5-4dbb-b000-89dc42456807.png)
 
 #### 3.2.2 修改IP地址
 
@@ -1020,7 +1020,7 @@ Linux系统是一种典型的多用户系统，不同的用户处于不同的地
 
 ##### 1**）从左到右的****10****个字符表示**
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685988695026-db94cd84-07eb-4680-bb97-58ff17f71f23.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685988695026-db94cd84-07eb-4680-bb97-58ff17f71f23.png)
 
 图文件属性
 
@@ -1098,7 +1098,7 @@ drwxr-xr-x.  2 root root 4096 1月  12 14:04 mingjie
 
 ##### 1）基本语法
 
-![img](https://cdn.nlark.com/yuque/0/2023/png/34996267/1685988807333-68667df1-6f06-4eac-8a4f-41b00f3c8a54.png)
+![img](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/1685988807333-68667df1-6f06-4eac-8a4f-41b00f3c8a54.png)
 
 第一种方式变更权限
 
@@ -1859,11 +1859,11 @@ set password=password('你的密码');
 
 **character-set-server=utf8**
 
-12) #### 重启MySQL的服务
+12. #### 重启MySQL的服务
 
 systemctl restart mysqld
 
-13) #### 设置root远程权限
+13. #### 设置root远程权限
 
 利用root账号本地登录，修改mysql数据库,user表的root用户的远程访问权限
 
