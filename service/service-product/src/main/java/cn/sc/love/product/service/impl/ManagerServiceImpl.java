@@ -1,11 +1,7 @@
 package cn.sc.love.product.service.impl;
 
-import cn.sc.love.model.product.BaseCategory1;
-import cn.sc.love.model.product.BaseCategory2;
-import cn.sc.love.model.product.BaseCategory3;
-import cn.sc.love.product.mapper.BaseCategory1Mapper;
-import cn.sc.love.product.mapper.BaseCategory2Mapper;
-import cn.sc.love.product.mapper.BaseCategory3Mapper;
+import cn.sc.love.model.product.*;
+import cn.sc.love.product.mapper.*;
 import cn.sc.love.product.service.ManagerService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +23,9 @@ public class ManagerServiceImpl implements ManagerService {
     private BaseCategory2Mapper baseCategory2Mapper;
     @Autowired
     private BaseCategory3Mapper baseCategory3Mapper;
+    @Autowired
+    private BaseAttrInfoMapper baseAttrInfoMapper;
+
 
     @Override
     public List<BaseCategory1> getCategory1() {
@@ -53,5 +52,11 @@ public class ManagerServiceImpl implements ManagerService {
         List<BaseCategory3> category3List = baseCategory3Mapper.selectList(queryWrapper);
 
         return category3List;
+    }
+
+    @Override
+    public List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id) {
+
+        return baseAttrInfoMapper.selectAttrInfoList(category1Id, category2Id, category3Id);
     }
 }

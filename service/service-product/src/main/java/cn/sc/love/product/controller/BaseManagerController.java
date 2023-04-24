@@ -1,6 +1,7 @@
 package cn.sc.love.product.controller;
 
 import cn.sc.love.common.result.Result;
+import cn.sc.love.model.product.BaseAttrInfo;
 import cn.sc.love.model.product.BaseCategory1;
 import cn.sc.love.model.product.BaseCategory2;
 import cn.sc.love.model.product.BaseCategory3;
@@ -50,6 +51,16 @@ public class BaseManagerController {
 
         List<BaseCategory3> baseCategory3List = managerService.getCategory3(category2Id);
         return Result.ok(baseCategory3List);
+    }
+
+    @GetMapping("/attrInfoList/{category1Id}/{category2Id}/{category3Id}")
+    @ApiOperation("/根据三级分类查询平台属性")
+    public Result attrInfoList(@PathVariable Long category1Id, @PathVariable Long category2Id, @PathVariable Long category3Id) {
+
+        List<BaseAttrInfo> baseAttrInfoList = managerService.attrInfoList(category1Id, category2Id, category3Id);
+
+        return Result.ok(baseAttrInfoList);
+
     }
 
 
