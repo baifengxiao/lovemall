@@ -1,6 +1,8 @@
 package cn.sc.love.product.service;
 
 import cn.sc.love.model.product.BaseCategory1;
+import cn.sc.love.model.product.BaseCategory2;
+import cn.sc.love.model.product.BaseCategory3;
 
 import java.util.List;
 
@@ -10,4 +12,8 @@ import java.util.List;
  */
 public interface ManagerService {
     List<BaseCategory1> getCategory1();
+
+    List<BaseCategory2> getCategory2(Long category1Id);
+
+    List<BaseCategory3> getCategory3(Long category2Id);
 }

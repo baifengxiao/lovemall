@@ -25,7 +25,7 @@ import java.util.List;
 public class Swagger2Config {
 
     @Bean
-    public Docket webApiConfig(){
+    public Docket webApiConfig() {
 
         //添加head参数start
         List<Parameter> pars = new ArrayList<>();
@@ -40,7 +40,7 @@ public class Swagger2Config {
         pars.add(tokenPar.build());
 
         ParameterBuilder tmpPar = new ParameterBuilder();
-                tmpPar.name("userTempId")
+        tmpPar.name("userTempId")
                 .description("临时用户ID")
                 .defaultValue("1")
                 .modelRef(new ModelRef("string"))
@@ -64,7 +64,7 @@ public class Swagger2Config {
     }
 
     @Bean
-    public Docket adminApiConfig(){
+    public Docket adminApiConfig() {
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("adminApi")
@@ -76,7 +76,7 @@ public class Swagger2Config {
 
     }
 
-    private ApiInfo webApiInfo(){
+    private ApiInfo webApiInfo() {
 
         return new ApiInfoBuilder()
                 .title("网站-API文档")
@@ -86,13 +86,12 @@ public class Swagger2Config {
                 .build();
     }
 
-    private ApiInfo adminApiInfo(){
-
+    private ApiInfo adminApiInfo() {
         return new ApiInfoBuilder()
-                .title("后台管理系统-API文档")
+                .title("lovemall后台管理系统-API文档")
                 .description("本文档描述了后台管理系统微服务接口定义")
                 .version("1.0")
-                .contact(new Contact("Helen", "http://atguigu.com", "55317332@qq.com"))
+                .contact(new Contact("yupengtao", "http://love.sc.cn", "yupengtao@88.com"))
                 .build();
     }
 
