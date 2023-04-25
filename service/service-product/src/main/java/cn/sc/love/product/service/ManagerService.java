@@ -1,9 +1,6 @@
 package cn.sc.love.product.service;
 
-import cn.sc.love.model.product.BaseAttrInfo;
-import cn.sc.love.model.product.BaseCategory1;
-import cn.sc.love.model.product.BaseCategory2;
-import cn.sc.love.model.product.BaseCategory3;
+import cn.sc.love.model.product.*;
 
 import java.util.List;
 
@@ -21,4 +18,6 @@ public interface ManagerService {
     List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id);
 
     void saveAttrInfo(BaseAttrInfo baseAttrInfo);
+
+    List<BaseAttrValue> getAttrValueList(Long attrId);
 }

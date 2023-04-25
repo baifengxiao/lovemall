@@ -1,10 +1,7 @@
 package cn.sc.love.product.controller;
 
 import cn.sc.love.common.result.Result;
-import cn.sc.love.model.product.BaseAttrInfo;
-import cn.sc.love.model.product.BaseCategory1;
-import cn.sc.love.model.product.BaseCategory2;
-import cn.sc.love.model.product.BaseCategory3;
+import cn.sc.love.model.product.*;
 import cn.sc.love.product.service.ManagerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -51,7 +48,7 @@ public class BaseManagerController {
     }
 
     @GetMapping("/attrInfoList/{category1Id}/{category2Id}/{category3Id}")
-    @ApiOperation("/根据三级分类查询平台属性")
+    @ApiOperation("根据三级分类查询平台属性")
     public Result attrInfoList(@PathVariable Long category1Id, @PathVariable Long category2Id, @PathVariable Long category3Id) {
 
         List<BaseAttrInfo> baseAttrInfoList = managerService.attrInfoList(category1Id, category2Id, category3Id);
@@ -66,6 +63,15 @@ public class BaseManagerController {
 
         managerService.saveAttrInfo(baseAttrInfo);
         return Result.ok();
+
+    }
+
+    @GetMapping("/getAttrValueList/{attrId}")
+    @ApiOperation("根据平台属性id获取到平台属性值集合")
+    public Result getAttrValueList(@PathVariable Long attrId) {
+
+        List<BaseAttrValue> baseAttrValueList = managerService.getAttrValueList(attrId);
+        return Result.ok(baseAttrValueList);
 
     }
 

@@ -153,5 +153,28 @@ public class ManagerServiceImpl implements ManagerService {
 
     }
 
+    @Override
+    public List<BaseAttrValue> getAttrValueList(Long attrId) {
+
+//        //不严谨，可能出现进入查询，baseattrInfo刚好删除的情况
+//        QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+//        wrapper.eq("attr_id", attrId);
+//        List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(wrapper);
+//        return baseAttrValueList;
+
+
+        //1,先找到实体，
+        BaseAttrInfo baseAttrInfo = baseAttrInfoMapper.selectById(attrId);
+        Long id = baseAttrInfo.getId();
+
+        //2，再用实体的id查数据（实体被删了就没有id，就不会查）
+        QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+        wrapper.eq("attr_id", id);
+        List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(wrapper);
+
+
+        return baseAttrValueList;
+    }
+
 
 }
