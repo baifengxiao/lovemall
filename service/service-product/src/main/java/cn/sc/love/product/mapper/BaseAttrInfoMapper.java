@@ -1,6 +1,7 @@
 package cn.sc.love.product.mapper;
 
 import cn.sc.love.model.product.BaseAttrInfo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
  * @create 2023-04-25-6:34
  */
 @Mapper
-public interface BaseAttrInfoMapper {
+public interface BaseAttrInfoMapper extends BaseMapper<BaseAttrInfo> {
 
     /**
      * 根据分类id查询平台属性集合

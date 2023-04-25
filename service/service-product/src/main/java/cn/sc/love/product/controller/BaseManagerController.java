@@ -9,10 +9,7 @@ import cn.sc.love.product.service.ManagerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,6 +57,15 @@ public class BaseManagerController {
         List<BaseAttrInfo> baseAttrInfoList = managerService.attrInfoList(category1Id, category2Id, category3Id);
 
         return Result.ok(baseAttrInfoList);
+
+    }
+
+    @PostMapping("/saveAttrInfo")
+    @ApiOperation("保存/修改平台属性")
+    public Result saveAttrInfo(@RequestBody BaseAttrInfo baseAttrInfo) {
+
+        managerService.saveAttrInfo(baseAttrInfo);
+        return Result.ok();
 
     }
 

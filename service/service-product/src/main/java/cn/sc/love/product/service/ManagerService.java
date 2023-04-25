@@ -19,4 +19,6 @@ public interface ManagerService {
     List<BaseCategory3> getCategory3(Long category2Id);
 
     List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id);
+
+    void saveAttrInfo(BaseAttrInfo baseAttrInfo);
 }

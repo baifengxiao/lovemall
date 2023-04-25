@@ -6,6 +6,8 @@ import cn.sc.love.product.service.ManagerService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class ManagerServiceImpl implements ManagerService {
     private BaseCategory3Mapper baseCategory3Mapper;
     @Autowired
     private BaseAttrInfoMapper baseAttrInfoMapper;
+    @Autowired
+    private BaseAttrValueMapper baseAttrValueMapper;
 
 
     @Override
@@ -59,4 +63,95 @@ public class ManagerServiceImpl implements ManagerService {
 
         return baseAttrInfoMapper.selectAttrInfoList(category1Id, category2Id, category3Id);
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveAttrInfo(BaseAttrInfo baseAttrInfo) {
+//
+//
+//        //1判断是保存还是修改
+//        if (baseAttrInfo.getId() != null) {
+//
+//            //修改    先插入baseAttrInfo基本属性，再插入平台属性
+//            baseAttrInfoMapper.updateById(baseAttrInfo);
+//
+//            //不采用修改，采用“先删除，重新添加”，因为修改操作复杂
+//            //先删除
+//            QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+//            wrapper.eq("attr_id", baseAttrInfo.getId());
+//            baseAttrValueMapper.delete(wrapper);
+//
+//            //后添加
+//            List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+//            if (!CollectionUtils.isEmpty(attrValueList)) {
+//
+//                for (BaseAttrValue baseAttrValue : attrValueList) {
+//                    baseAttrValue.setAttrId(baseAttrInfo.getId());
+//                    baseAttrValueMapper.insert(baseAttrValue);
+//                }
+//
+//            }
+//        } else {
+//
+//
+//            //新增，直接添加
+//            baseAttrInfoMapper.insert(baseAttrInfo);
+//
+//            List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+//            if (!CollectionUtils.isEmpty(attrValueList)) {
+//
+//                for (BaseAttrValue baseAttrValue : attrValueList) {
+//                    baseAttrValue.setAttrId(baseAttrInfo.getId());
+//                    baseAttrValueMapper.insert(baseAttrValue);
+//                }
+//
+//
+//            }
+//
+//        }
+//
+//
+//
+//
+//
+//
+
+
+        //1判断是保存还是修改
+        if (baseAttrInfo.getId() != null) {
+
+            //修改    先插入baseAttrInfo基本属性，再插入平台属性
+            baseAttrInfoMapper.updateById(baseAttrInfo);
+
+            //不采用修改，采用“先删除，重新添加”，因为修改操作复杂
+            //先删除
+            QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+            wrapper.eq("attr_id", baseAttrInfo.getId());
+            baseAttrValueMapper.delete(wrapper);
+
+        } else {
+
+            //新增，直接添加
+            baseAttrInfoMapper.insert(baseAttrInfo);
+        }
+
+        //都需要添加，写到外面
+        List<BaseAttrValue> attrValueList = baseAttrInfo.getAttrValueList();
+        if (!CollectionUtils.isEmpty(attrValueList)) {
+
+            for (BaseAttrValue baseAttrValue : attrValueList) {
+                baseAttrValue.setAttrId(baseAttrInfo.getId());
+                baseAttrValueMapper.insert(baseAttrValue);
+            }
+
+
+        }
+
+
+        //1.3注意加事务
+
+
+    }
+
+
 }
