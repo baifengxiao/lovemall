@@ -11,16 +11,16 @@ import org.springframework.web.bind.annotation.*;
 public class BaseCategoryTrademarkController {
 
 
-
-("/baseCategoryTrademark/findTrademarkList/{category3Id}")
-
-("baseCategoryTrademark/remove/{category3Id}/{trademarkId}")
-
-
-("baseCategoryTrademark/findCurrentTrademarkList/{category3Id}")
-
-
-   ("/baseCategoryTrademark/save")
+//
+//("/baseCategoryTrademark/findTrademarkList/{category3Id}")
+//
+//("baseCategoryTrademark/remove/{category3Id}/{trademarkId}")
+//
+//
+//("baseCategoryTrademark/findCurrentTrademarkList/{category3Id}")
+//
+//
+//   ("/baseCategoryTrademark/save")
 
 
 
