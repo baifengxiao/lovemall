@@ -1,6 +1,8 @@
 package cn.sc.love.product.service;
 
 import cn.sc.love.model.product.*;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import java.util.List;
 
@@ -20,4 +22,7 @@ public interface ManagerService {
     void saveAttrInfo(BaseAttrInfo baseAttrInfo);
 
     List<BaseAttrValue> getAttrValueList(Long attrId);
+
+
+    IPage<SpuInfo> getSpuInfoPage( SpuInfo spuInfo,Page<SpuInfo> infoPage);
 }

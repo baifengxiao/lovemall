@@ -1,9 +1,12 @@
 package cn.sc.love.product.service.impl;
 
+
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.mapper.*;
 import cn.sc.love.product.service.ManagerService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +32,9 @@ public class ManagerServiceImpl implements ManagerService {
     private BaseAttrInfoMapper baseAttrInfoMapper;
     @Autowired
     private BaseAttrValueMapper baseAttrValueMapper;
+
+    @Autowired
+    private SpuInfoMapper spuInfoMapper;
 
 
     @Override
@@ -174,6 +180,14 @@ public class ManagerServiceImpl implements ManagerService {
 
 
         return baseAttrValueList;
+    }
+
+    @Override
+    public IPage<SpuInfo> getSpuInfoPage(SpuInfo spuInfo,Page<SpuInfo> infoPage ) {
+
+        QueryWrapper<SpuInfo> wrapper = new QueryWrapper<>();
+        wrapper.eq("category3_id", spuInfo.getCategory3Id());
+        return spuInfoMapper.selectPage(infoPage, wrapper );
     }
 
 
