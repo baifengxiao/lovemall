@@ -6,7 +6,7 @@ import cn.sc.love.product.service.BaseTrademarkService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,17 +14,17 @@ import org.springframework.stereotype.Service;
  * @create 2023-05-02-22:23
  */
 @Service
-public class BaseTrademarkServiceImpl implements BaseTrademarkService {
+public class BaseTrademarkServiceImpl extends ServiceImpl<BaseTrademarkMapper,BaseTrademark> implements BaseTrademarkService {
 
-    @Autowired
-    private BaseTrademarkMapper baseTrademarkMapper;
+//    @Autowired
+//    private BaseTrademarkMapper baseTrademarkMapper;
 
 
     @Override
     public IPage<BaseTrademark> getBaseTrademarkPage(Page<BaseTrademark> baseTrademarkPage) {
         QueryWrapper<BaseTrademark> wrapper = new QueryWrapper<>();
         wrapper.orderByAsc("id");
-        Page<BaseTrademark> trademarkPage = baseTrademarkMapper.selectPage(baseTrademarkPage, wrapper);
+        Page<BaseTrademark> trademarkPage = baseMapper.selectPage(baseTrademarkPage, wrapper);
         return trademarkPage;
     }
 }
