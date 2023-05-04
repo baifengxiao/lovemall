@@ -14,10 +14,10 @@ import java.util.List;
  * @author YPT
  * @create 2023-04-24-15:05
  */
-@Api(tags = "商品基础开发接口")
+@Api(tags = "商品分类接口")
 @RestController
 @RequestMapping("/admin/product")
-public class BaseManagerController {
+public class BaseCategoryController {
 
     @Autowired
     private ManagerService managerService;
