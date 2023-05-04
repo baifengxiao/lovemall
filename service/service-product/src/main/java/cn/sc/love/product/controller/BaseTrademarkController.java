@@ -35,6 +35,7 @@ public class BaseTrademarkController {
     }
 
 
+    @ApiOperation("新增品牌")
     @PostMapping("/save")
     public Result save(@RequestBody BaseTrademark baseTrademark) {
         baseTrademarkService.save(baseTrademark);
@@ -42,6 +43,7 @@ public class BaseTrademarkController {
     }
 
 
+    @ApiOperation("根据品牌id删除品牌")
     @DeleteMapping("remove/{id}")
     public Result remove(@PathVariable Long id) {
         baseTrademarkService.removeById(id);
@@ -49,12 +51,14 @@ public class BaseTrademarkController {
     }
 
 
+    @ApiOperation("根据品牌id修改品牌")
     @PutMapping("/update")
     public Result update(@RequestBody BaseTrademark baseTrademark) {
         baseTrademarkService.updateById(baseTrademark);
         return Result.ok();
     }
 
+    @ApiOperation("根据品牌id查询品牌")
     @GetMapping("/get/{id}")
     public Result get(@PathVariable Long id) {
         BaseTrademark baseTrademark = baseTrademarkService.getById(id);

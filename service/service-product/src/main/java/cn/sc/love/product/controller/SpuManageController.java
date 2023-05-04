@@ -28,7 +28,7 @@ public class SpuManageController {
 
 
     @GetMapping("{page}/{limit}")
-    @ApiOperation("spu分页查询")
+    @ApiOperation("三级分类下的spu分页列表")
     public Result getSpuInfoPage(@PathVariable Long page, @PathVariable Long limit, SpuInfo spuInfo) {
 
         Page<SpuInfo> infoPage = new Page<>(page, limit);

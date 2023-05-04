@@ -67,6 +67,7 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id) {
 
+        //TODO 可以优化
         return baseAttrInfoMapper.selectAttrInfoList(category1Id, category2Id, category3Id);
     }
 
