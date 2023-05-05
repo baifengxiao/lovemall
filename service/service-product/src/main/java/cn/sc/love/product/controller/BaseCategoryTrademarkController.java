@@ -1,7 +1,9 @@
 package cn.sc.love.product.controller;
 
+
 import cn.sc.love.common.result.Result;
 import cn.sc.love.model.product.BaseTrademark;
+import cn.sc.love.model.product.CategoryTrademarkVo;
 import cn.sc.love.product.service.BaseCategoryTrademarkService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,14 +42,18 @@ public class BaseCategoryTrademarkController {
         return Result.ok();
     }
 
+    @ApiOperation("查询分类未关联品牌列表")
     @GetMapping("findCurrentTrademarkList/{category3Id}")
     public Result findCurrentTrademarkList(@PathVariable Long category3Id) {
         List<BaseTrademark> list = baseCategoryTrademarkService.findCurrentTrademarkList(category3Id);
         return Result.ok(list);
     }
 
+    @ApiOperation("保存分类品牌关联")
+    @PostMapping("/save")
+    public Result save(@RequestBody CategoryTrademarkVo categoryTrademarkVo) {
+        baseCategoryTrademarkService.save(categoryTrademarkVo);
+        return Result.ok();
 
-//   ("/baseCategoryTrademark/save")
-
-
+    }
 }

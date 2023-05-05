@@ -2,10 +2,12 @@ package cn.sc.love.product.service.impl;
 
 import cn.sc.love.model.product.BaseCategoryTrademark;
 import cn.sc.love.model.product.BaseTrademark;
+import cn.sc.love.model.product.CategoryTrademarkVo;
 import cn.sc.love.product.mapper.BaseCategoryTrademarkMapper;
 import cn.sc.love.product.mapper.BaseTrademarkMapper;
 import cn.sc.love.product.service.BaseCategoryTrademarkService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -19,13 +21,16 @@ import java.util.stream.Collectors;
  * @create 2023-05-04-21:54
  */
 @Service
-public class BaseCategoryTrademarkServiceImpl implements BaseCategoryTrademarkService {
+public class BaseCategoryTrademarkServiceImpl extends ServiceImpl<BaseCategoryTrademarkMapper, BaseCategoryTrademark> implements BaseCategoryTrademarkService {
 
     @Autowired
     private BaseCategoryTrademarkMapper baseCategoryTrademarkMapper;
 
     @Autowired
     private BaseTrademarkMapper baseTrademarkMapper;
+
+    @Autowired
+    private BaseCategoryTrademarkService baseCategoryTrademarkService;
 
     @Override
     public List<BaseTrademark> findTrademarkList(Long category3Id) {
@@ -80,6 +85,31 @@ public class BaseCategoryTrademarkServiceImpl implements BaseCategoryTrademarkSe
 
         //没有已关联的品牌，就查出所有品牌
         return baseTrademarkMapper.selectList(null);
+    }
+
+    /**
+     * 向某个分类添加品牌集合
+     *
+     * @param categoryTrademarkVo
+     */
+    @Override
+    public void save(CategoryTrademarkVo categoryTrademarkVo) {
+
+        Long category3Id = categoryTrademarkVo.getCategory3Id();
+        List<BaseCategoryTrademark> categoryTrademarkList = categoryTrademarkVo.getTrademarkIdList().stream().map(tradmarkid -> {
+
+            //添加分类id
+            BaseCategoryTrademark baseCategoryTrademark = new BaseCategoryTrademark();
+            baseCategoryTrademark.setCategory3Id(category3Id);
+
+            //添加分类品牌
+            baseCategoryTrademark.setTrademarkId(tradmarkid);
+            return baseCategoryTrademark;
+
+        }).collect(Collectors.toList());
+        baseCategoryTrademarkService.saveBatch(categoryTrademarkList);
+
+
     }
 
 
