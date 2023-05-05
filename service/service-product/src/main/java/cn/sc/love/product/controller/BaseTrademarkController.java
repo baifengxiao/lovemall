@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2023-04-27-23:24
  */
 
-@Api("品牌管理接口")
+@Api(tags = "品牌管理接口")
 @RestController
 @RequestMapping("/admin/product/baseTrademark")
 public class BaseTrademarkController {

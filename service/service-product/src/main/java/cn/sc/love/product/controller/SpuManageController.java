@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RequestMapping("/admin/product")
 @RestController
-@Api("SPU管理接口")
+@Api(tags = "SPU管理接口")
 public class SpuManageController {
 
     @Autowired
