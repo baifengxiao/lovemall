@@ -79,7 +79,7 @@ public class Swagger2Config {
     private ApiInfo webApiInfo() {
 
         return new ApiInfoBuilder()
-                .title("网站-API文档")
+                .title("lovemall-API文档")
                 .description("本文档描述了网站微服务接口定义")
                 .version("1.0")
                 .contact(new Contact("Helen", "http://love.sc.cn", "yupengtao@88.com"))
