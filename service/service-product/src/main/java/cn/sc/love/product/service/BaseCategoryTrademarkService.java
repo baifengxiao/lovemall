@@ -12,4 +12,6 @@ public interface BaseCategoryTrademarkService {
     List<BaseTrademark> findTrademarkList(Long category3Id);
 
     void remove(Long category3Id, Long trademarkId);
+
+    List<BaseTrademark> findCurrentTrademarkList(Long category3Id);
 }

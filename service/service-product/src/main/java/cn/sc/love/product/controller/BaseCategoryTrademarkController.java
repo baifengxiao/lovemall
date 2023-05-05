@@ -40,9 +40,13 @@ public class BaseCategoryTrademarkController {
         return Result.ok();
     }
 
-//("baseCategoryTrademark/findCurrentTrademarkList/{category3Id}")
-//
-//
+    @GetMapping("findCurrentTrademarkList/{category3Id}")
+    public Result findCurrentTrademarkList(@PathVariable Long category3Id) {
+        List<BaseTrademark> list = baseCategoryTrademarkService.findCurrentTrademarkList(category3Id);
+        return Result.ok(list);
+    }
+
+
 //   ("/baseCategoryTrademark/save")
 
 
