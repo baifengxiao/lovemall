@@ -60,11 +60,6 @@ public class BaseCategoryTrademarkServiceImpl implements BaseCategoryTrademarkSe
     @Override
     public List<BaseTrademark> findCurrentTrademarkList(Long category3Id) {
 
-        List<BaseTrademark> trademarks = new ArrayList<>();
-
-        //所有品牌
-        List<BaseTrademark> allTrademarklist = baseTrademarkMapper.selectList(null);
-
         //已关联的品牌
         QueryWrapper<BaseCategoryTrademark> wrapper = new QueryWrapper<>();
         wrapper.eq("category3_id", category3Id);
@@ -73,26 +68,17 @@ public class BaseCategoryTrademarkServiceImpl implements BaseCategoryTrademarkSe
         if (!CollectionUtils.isEmpty(categoryTrademarkList)) {
 
             //已被关联品牌id集合
-            List<Long> tradMarkList = categoryTrademarkList.stream()
-
-//                    .filter(list -> {
-//                return !allIdList.contains(list.getTrademarkId());
-//            })
-
-                    .map(a -> {
-                        System.out.println("这句话出不来？" + a.getTrademarkId());
-                        return a.getTrademarkId();
-                    }).collect(Collectors.toList());
-            System.out.println("------" + tradMarkList);
-            QueryWrapper<BaseTrademark> queryWrapper = new QueryWrapper<>();
-            queryWrapper.in("id", tradMarkList);
-            trademarks = baseTrademarkMapper.selectList(queryWrapper);
-
-            List<BaseTrademark> trademarkList = allTrademarklist.stream().filter(b -> {
-                return !tradMarkList.contains(b.getId());
+            List<Long> tradMarkList = categoryTrademarkList.stream().map(a -> {
+                return a.getTrademarkId();
             }).collect(Collectors.toList());
-            return trademarkList;
+
+            //未被关联的品牌集合
+            QueryWrapper<BaseTrademark> queryWrapper = new QueryWrapper<>();
+            queryWrapper.notIn("id", tradMarkList);
+            return baseTrademarkMapper.selectList(queryWrapper);
         }
+
+        //没有已关联的品牌，就查出所有品牌
         return baseTrademarkMapper.selectList(null);
     }
 
