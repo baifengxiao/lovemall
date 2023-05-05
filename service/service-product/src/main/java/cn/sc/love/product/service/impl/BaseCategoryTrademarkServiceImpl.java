@@ -64,57 +64,37 @@ public class BaseCategoryTrademarkServiceImpl implements BaseCategoryTrademarkSe
 
         //所有品牌
         List<BaseTrademark> allTrademarklist = baseTrademarkMapper.selectList(null);
-        List<Long> allIdList = allTrademarklist.stream().map(a -> a.getId()).collect(Collectors.toList());
-
-        QueryWrapper<BaseCategoryTrademark> wrapper = new QueryWrapper<>();
-        wrapper.eq("category3_id", category3Id);
 
         //已关联的品牌
+        QueryWrapper<BaseCategoryTrademark> wrapper = new QueryWrapper<>();
+        wrapper.eq("category3_id", category3Id);
         List<BaseCategoryTrademark> categoryTrademarkList = baseCategoryTrademarkMapper.selectList(wrapper);
 
         if (!CollectionUtils.isEmpty(categoryTrademarkList)) {
 
-
             //已被关联品牌id集合
-            List<Long> tradMarkList = categoryTrademarkList.stream().filter(list -> {
+            List<Long> tradMarkList = categoryTrademarkList.stream()
 
-                return !allIdList.contains(list.getTrademarkId());
-            }).map(a -> {
-                System.out.println("这句话出不来？"+a.getTrademarkId());
-                return a.getTrademarkId();
-            }).collect(Collectors.toList());
+//                    .filter(list -> {
+//                return !allIdList.contains(list.getTrademarkId());
+//            })
+
+                    .map(a -> {
+                        System.out.println("这句话出不来？" + a.getTrademarkId());
+                        return a.getTrademarkId();
+                    }).collect(Collectors.toList());
             System.out.println("------" + tradMarkList);
             QueryWrapper<BaseTrademark> queryWrapper = new QueryWrapper<>();
             queryWrapper.in("id", tradMarkList);
             trademarks = baseTrademarkMapper.selectList(queryWrapper);
+
+            List<BaseTrademark> trademarkList = allTrademarklist.stream().filter(b -> {
+                return !tradMarkList.contains(b.getId());
+            }).collect(Collectors.toList());
+            return trademarkList;
         }
-        return trademarks;
+        return baseTrademarkMapper.selectList(null);
     }
 
-//    @Override
-//    public List<BaseTrademark> findCurrentTrademarkList(Long category3Id) {
-//
-//        //先获取所有关联了的id集合
-//        QueryWrapper<BaseCategoryTrademark> wrapper = new QueryWrapper<>();
-//        wrapper.eq("category3_id", category3Id);
-//        List<BaseCategoryTrademark> categoryTrademarkList = baseCategoryTrademarkMapper.selectList(wrapper);
-//
-//        if (!CollectionUtils.isEmpty(categoryTrademarkList)) {
-//            List<Long> list = categoryTrademarkList.stream().map(a -> {
-//                return a.getTrademarkId();
-//            }).collect(Collectors.toList());
-//
-//            //再过滤
-//            List<BaseTrademark> trademarks = baseTrademarkMapper.selectList(null).stream()
-//                    .filter(b -> {
-//                        return !list.contains(b.getId());
-//                    }).collect(Collectors.toList());
-//
-//            return trademarks;
-//
-//        }
-//        //没有被关联的，返回空
-//        return baseTrademarkMapper.selectList(null);
-//
-//    }
+
 }
