@@ -36,6 +36,17 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private SpuInfoMapper spuInfoMapper;
 
+    @Autowired
+    private BaseSaleAttrMapper baseSaleAttrMapper;
+
+    @Autowired
+    private SpuImageMapper spuImageMapper;
+    @Autowired
+    private SpuSaleAttrMapper spuSaleAttrMapper;
+    @Autowired
+    private SpuSaleAttrValueMapper spuSaleAttrValueMapper;
+    @Autowired
+    private SpuPosterMapper spuPosterMapper;
 
     @Override
     public List<BaseCategory1> getCategory1() {
@@ -184,11 +195,66 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public IPage<SpuInfo> getSpuInfoPage(SpuInfo spuInfo,Page<SpuInfo> infoPage ) {
+    public IPage<SpuInfo> getSpuInfoPage(SpuInfo spuInfo, Page<SpuInfo> infoPage) {
 
         QueryWrapper<SpuInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("category3_id", spuInfo.getCategory3Id());
-        return spuInfoMapper.selectPage(infoPage, wrapper );
+        return spuInfoMapper.selectPage(infoPage, wrapper);
+    }
+
+    @Override
+    public List<BaseSaleAttr> baseSaleAttrList() {
+
+        return baseSaleAttrMapper.selectList(null);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveSpuInfo(SpuInfo spuInfo) {
+
+        spuInfoMapper.insert(spuInfo);
+
+        //2，保存图片列表
+        List<SpuImage> spuImageList = spuInfo.getSpuImageList();
+        if (!CollectionUtils.isEmpty(spuImageList)) {
+
+            for (SpuImage spuImage : spuImageList) {
+                spuImage.setSpuId(spuInfo.getId());
+                spuImageMapper.insert(spuImage);
+            }
+        }
+
+        //3.1保存销售属性
+        List<SpuSaleAttr> saleAttrList = spuInfo.getSpuSaleAttrList();
+        for (SpuSaleAttr spuSaleAttr : saleAttrList) {
+            spuSaleAttr.setSpuId(spuInfo.getId());
+            spuSaleAttrMapper.insert(spuSaleAttr);
+            //3.2保存销售属性值
+
+            List<SpuSaleAttrValue> spuSaleAttrValueList = spuSaleAttr.getSpuSaleAttrValueList();
+            if (!CollectionUtils.isEmpty(spuSaleAttrValueList)) {
+
+                for (SpuSaleAttrValue attrValue : spuSaleAttrValueList) {
+                    attrValue.setSpuId(spuInfo.getId());
+                    attrValue.setSaleAttrName(spuSaleAttr.getSaleAttrName());
+                    spuSaleAttrValueMapper.insert(attrValue);
+                }
+            }
+
+        }
+
+        //4，保存海报
+        List<SpuPoster> spuPosterList = spuInfo.getSpuPosterList();
+        if (!CollectionUtils.isEmpty(spuPosterList)) {
+
+            for (SpuPoster spuPoster : spuPosterList) {
+                spuPoster.setSpuId(spuInfo.getId());
+                spuPosterMapper.insert(spuPoster);
+            }
+
+        }
+
+
     }
 
 

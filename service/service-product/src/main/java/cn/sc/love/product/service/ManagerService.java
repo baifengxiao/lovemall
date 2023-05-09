@@ -25,4 +25,8 @@ public interface ManagerService {
 
 
     IPage<SpuInfo> getSpuInfoPage( SpuInfo spuInfo,Page<SpuInfo> infoPage);
+
+    List<BaseSaleAttr> baseSaleAttrList();
+
+    void saveSpuInfo(SpuInfo spuInfo);
 }

@@ -2,6 +2,7 @@ package cn.sc.love.product.controller;
 
 
 import cn.sc.love.common.result.Result;
+import cn.sc.love.model.product.BaseSaleAttr;
 import cn.sc.love.model.product.SpuInfo;
 import cn.sc.love.product.service.ManagerService;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -9,10 +10,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author YPT
@@ -36,5 +36,21 @@ public class SpuManageController {
         return Result.ok(infoIPage);
     }
 
+    @ApiOperation("销售属性列表")
+    @GetMapping("/baseSaleAttrList")
+    public Result baseSaleAttrList() {
+        List<BaseSaleAttr> baseSaleAttrList = managerService.baseSaleAttrList();
+        return Result.ok(baseSaleAttrList);
+    }
+
+    @ApiOperation("保存Spuinfo信息")
+    @PostMapping("/saveSpuInfo")
+    public Result saveSpuInfo(@RequestBody SpuInfo spuInfo) {
+
+
+        managerService.saveSpuInfo(spuInfo);
+        return Result.ok();
+
+    }
 
 }
