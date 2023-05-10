@@ -257,5 +257,11 @@ public class ManagerServiceImpl implements ManagerService {
 
     }
 
+    @Override
+    public List<SpuSaleAttr> spuSaleAttrList(Long spuId) {
+
+        return spuSaleAttrMapper.selectSpuSaleAttrList(spuId);
+    }
+
 
 }

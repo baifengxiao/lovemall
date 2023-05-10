@@ -29,4 +29,6 @@ public interface ManagerService {
     List<BaseSaleAttr> baseSaleAttrList();
 
     void saveSpuInfo(SpuInfo spuInfo);
+
+    List<SpuSaleAttr> spuSaleAttrList(Long spuId);
 }
