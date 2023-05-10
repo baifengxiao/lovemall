@@ -32,4 +32,11 @@ public class SkuManagerController {
 
         return Result.ok(spuSaleAttrList);
     }
+
+    @ApiOperation("根据spuid查询spu图片列表")
+    @GetMapping("spuImageList/{spuId}")
+    public Result spuImageList(@PathVariable Long spuId) {
+
+        return Result.ok(managerService.spuImageList(spuId));
+    }
 }

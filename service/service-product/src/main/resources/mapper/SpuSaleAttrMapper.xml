@@ -2,7 +2,6 @@
 <!DOCTYPE mapper SYSTEM "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="cn.sc.love.product.mapper.SpuSaleAttrMapper">
 
-
     <resultMap id="spuSaleAttrMapper" type="cn.sc.love.model.product.SpuSaleAttr" autoMapping="true">
         <id column="id" property="id"></id>
         <collection property="spuSaleAttrValueList"

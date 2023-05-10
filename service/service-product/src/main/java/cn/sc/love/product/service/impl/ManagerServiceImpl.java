@@ -48,6 +48,10 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private SpuPosterMapper spuPosterMapper;
 
+    @Autowired
+    private SkuInfoMapper skuInfoMapper;
+
+
     @Override
     public List<BaseCategory1> getCategory1() {
 
@@ -261,6 +265,21 @@ public class ManagerServiceImpl implements ManagerService {
     public List<SpuSaleAttr> spuSaleAttrList(Long spuId) {
 
         return spuSaleAttrMapper.selectSpuSaleAttrList(spuId);
+    }
+
+    /**
+     * 通过spuid查询到skuid（skuinfo表），
+     * 将spuimage的图片，地址，赋给skuimage中的图片，地址
+     *
+     * @param spuId
+     * @return
+     */
+    @Override
+    public List<SpuImage> spuImageList(Long spuId) {
+
+        QueryWrapper<SpuImage> wrapper = new QueryWrapper<>();
+        wrapper.eq("spu_id", spuId);
+        return spuImageMapper.selectList(wrapper);
     }
 
 

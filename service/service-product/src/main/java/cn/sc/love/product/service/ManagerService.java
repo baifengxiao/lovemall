@@ -31,4 +31,6 @@ public interface ManagerService {
     void saveSpuInfo(SpuInfo spuInfo);
 
     List<SpuSaleAttr> spuSaleAttrList(Long spuId);
+
+    List<SpuImage> spuImageList(Long spuId);
 }
