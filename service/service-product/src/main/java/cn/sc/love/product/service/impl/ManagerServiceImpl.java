@@ -51,6 +51,15 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private SkuInfoMapper skuInfoMapper;
 
+    @Autowired
+    private SkuAttrValueMapper skuAttrValueMapper;
+
+    @Autowired
+    private SkuSaleAttrValueMapper skuSaleAttrValueMapper;
+
+    @Autowired
+    private SkuImageMapper skuImageMapper;
+
 
     @Override
     public List<BaseCategory1> getCategory1() {
@@ -280,6 +289,57 @@ public class ManagerServiceImpl implements ManagerService {
         QueryWrapper<SpuImage> wrapper = new QueryWrapper<>();
         wrapper.eq("spu_id", spuId);
         return spuImageMapper.selectList(wrapper);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveSkuInfo(SkuInfo skuInfo) {
+
+        //1,保存skuinfo
+        skuInfo.setIsSale(0);
+        skuInfoMapper.insert(skuInfo);
+
+        //2，保存sku属性值集合
+        List<SkuAttrValue> skuAttrValueList = skuInfo.getSkuAttrValueList();
+
+        if (!CollectionUtils.isEmpty(skuAttrValueList)) {
+            for (SkuAttrValue skuAttrValue : skuAttrValueList) {
+                skuAttrValue.setSkuId(skuInfo.getId());
+                skuAttrValueMapper.insert(skuAttrValue);
+            }
+        }
+
+
+        //3，保存sku销售属性值集合
+        List<SkuSaleAttrValue> saleAttrValueList = skuInfo.getSkuSaleAttrValueList();
+        if (!CollectionUtils.isEmpty(saleAttrValueList)) {
+            for (SkuSaleAttrValue saleAttrValue : saleAttrValueList) {
+
+                saleAttrValue.setSpuId(skuInfo.getSpuId());
+                saleAttrValue.setSkuId(skuInfo.getId());
+                skuSaleAttrValueMapper.insert(saleAttrValue);
+            }
+        }
+
+
+        //4，保存sku图片集合
+
+        List<SkuImage> skuImageList = skuInfo.getSkuImageList();
+        if (!CollectionUtils.isEmpty(skuImageList)) {
+            for (SkuImage skuImage : skuImageList) {
+
+                skuImage.setSkuId(skuInfo.getId());
+                skuImageMapper.insert(skuImage);
+            }
+        }
+    }
+
+    @Override
+    public IPage<SkuInfo> skuListPage(Page<SkuInfo> skuInfoPage) {
+        QueryWrapper<SkuInfo> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        return skuInfoMapper.selectPage(skuInfoPage, wrapper);
+
     }
 
 

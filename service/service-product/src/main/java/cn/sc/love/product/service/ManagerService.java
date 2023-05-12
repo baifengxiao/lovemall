@@ -33,4 +33,8 @@ public interface ManagerService {
     List<SpuSaleAttr> spuSaleAttrList(Long spuId);
 
     List<SpuImage> spuImageList(Long spuId);
+
+    void saveSkuInfo(SkuInfo skuInfo);
+
+    IPage<SkuInfo> skuListPage(Page<SkuInfo> skuInfoPage);
 }
