@@ -57,4 +57,20 @@ public class SkuManagerController {
         return Result.ok(skuInfoIPage);
 
     }
+
+    @ApiOperation("商品上架")
+    @GetMapping("onSale/{skuId}")
+    public Result onSale(@PathVariable Long skuId){
+         managerService.onSale(skuId);
+         return Result.ok();
+
+    }
+
+    @ApiOperation("商品下架")
+    @GetMapping("cancelSale/{skuId}")
+    public Result cancelSale(@PathVariable Long skuId){
+        managerService.cancelSale(skuId);
+        return Result.ok();
+    }
+
 }

@@ -37,4 +37,8 @@ public interface ManagerService {
     void saveSkuInfo(SkuInfo skuInfo);
 
     IPage<SkuInfo> skuListPage(Page<SkuInfo> skuInfoPage);
+
+    void onSale(Long skuId);
+
+    void cancelSale(Long skuId);
 }

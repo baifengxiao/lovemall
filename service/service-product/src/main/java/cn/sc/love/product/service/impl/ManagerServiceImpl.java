@@ -342,5 +342,21 @@ public class ManagerServiceImpl implements ManagerService {
 
     }
 
+    @Override
+    public void onSale(Long skuId) {
+        SkuInfo skuInfo = new SkuInfo();
+        skuInfo.setIsSale(1);
+        skuInfo.setId(skuId);
+        skuInfoMapper.updateById(skuInfo);
+    }
+
+    @Override
+    public void cancelSale(Long skuId) {
+        SkuInfo skuInfo = new SkuInfo();
+        skuInfo.setIsSale(0);
+        skuInfo.setId(skuId);
+        skuInfoMapper.updateById(skuInfo);
+    }
+
 
 }
