@@ -60,6 +60,9 @@ public class ManagerServiceImpl implements ManagerService {
     @Autowired
     private SkuImageMapper skuImageMapper;
 
+    @Autowired
+    private BaseCategoryViewMapper baseCategoryViewMapper;
+
 
     @Override
     public List<BaseCategory1> getCategory1() {
@@ -356,6 +359,58 @@ public class ManagerServiceImpl implements ManagerService {
         skuInfo.setIsSale(0);
         skuInfo.setId(skuId);
         skuInfoMapper.updateById(skuInfo);
+    }
+
+    @Override
+    public SkuInfo getSkuInfo(Long skuId) {
+
+
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+
+        QueryWrapper<SkuImage> imageQueryWrapper = new QueryWrapper<>();
+        imageQueryWrapper.eq("sku_id", skuId);
+        List<SkuImage> skuImages = skuImageMapper.selectList(imageQueryWrapper);
+        skuInfo.setSkuImageList(skuImages);
+
+//        QueryWrapper<SkuAttrValue> attrValueQueryWrapper = new QueryWrapper<>();
+//        attrValueQueryWrapper.eq("sku_id", skuId);
+//        List<SkuAttrValue> skuAttrValueList = skuAttrValueMapper.selectList(attrValueQueryWrapper);
+//        skuInfo.setSkuAttrValueList(skuAttrValueList);
+//
+//        QueryWrapper<SkuSaleAttrValue> skuSaleAttrValueQueryWrapper = new QueryWrapper<>();
+//        skuSaleAttrValueQueryWrapper.eq("sku_id", skuId);
+//        List<SkuSaleAttrValue> skuSaleAttrValueList = skuSaleAttrValueMapper.selectList(skuSaleAttrValueQueryWrapper);
+//        skuInfo.setSkuSaleAttrValueList(skuSaleAttrValueList);
+
+        return skuInfo;
+    }
+
+    @Override
+    public BaseCategoryView getCategoryView(Long category3Id) {
+
+        /**
+         *
+         * 优化sql，建视图：
+         * CREATE VIEW base_category_view AS
+         * SELECT
+         *   c3.id AS id,
+         *   c1.id AS category1_id,
+         *   c1.name AS category1_name,
+         *   c2.id AS category2_id,
+         *   c2.name AS category2_name,
+         *   c3.id AS category3_id,
+         *   c3.name AS category3_name
+         * FROM
+         *   base_category1 c1
+         *   INNER JOIN base_category2 c2
+         *     ON c1.id = c2.category1_id
+         *   INNER JOIN base_category3 c3
+         *     ON c2.id = c3.category2_id
+         *
+         */
+
+        return baseCategoryViewMapper.selectById(category3Id);
+
     }
 
 
