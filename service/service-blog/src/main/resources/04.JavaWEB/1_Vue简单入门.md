@@ -1,6 +1,6 @@
-# 1_Vue简单入门
+# JavaWeb——前端部分
 
-### 1. Vue
+## Vue简单入门
 
 #### 1.1 HelloWorld
 
@@ -61,7 +61,7 @@
 
 ###### 1.2.1.2 渲染
 
-![images](images/img003.png)
+![images](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/img003.png)
 
 上图含义解释：
 
@@ -75,8 +75,8 @@
 **HTML代码**
 
 ```html
-		<!-- 使用{{}}格式，指定要被渲染的数据 -->
-		<div id="app">{{message}}</div>
+<!-- 使用{{}}格式，指定要被渲染的数据 -->
+<div id="app">{{message}}</div>
 ```
 
 **vue代码**
@@ -84,22 +84,22 @@
 ```javascript
 // 1.创建一个JSON对象，作为new Vue时要使用的参数
 var argumentJson = {
-	
-	// el用于指定Vue对象要关联的HTML元素。el就是element的缩写
-	// 通过id属性值指定HTML元素时，语法格式是：#id
-	"el":"#app",
-	
-	// data属性设置了Vue对象中保存的数据
-	"data":{
-		"message":"Hello Vue!"
-	} 
+
+    // el用于指定Vue对象要关联的HTML元素。el就是element的缩写
+    // 通过id属性值指定HTML元素时，语法格式是：#id
+    "el":"#app",
+
+    // data属性设置了Vue对象中保存的数据
+    "data":{
+        "message":"Hello Vue!"
+    } 
 };
 
 // 2.创建Vue对象，传入上面准备好的参数
 var app = new Vue(argumentJson);
 ```
 
-<img src="images/img004.png" alt="images" style="zoom:50%;" />
+<img src="https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/img004.png" alt="images" style="zoom:50%;" />
 
 通过验证Vue对象的『响应式』效果，我们看到Vue对象和页面上的HTML标签确实是始终保持着关联的关系，同时看到Vue在背后确实是做了大量的工作。
 
@@ -117,13 +117,13 @@ v-bind:HTML标签的原始属性名
 
 ```html
 <div id="app">
-	<!-- v-bind:value表示将value属性交给Vue来进行管理，也就是绑定到Vue对象 -->
-	<!-- vueValue是一个用来渲染属性值的表达式，相当于标签体中加{{}}的表达式 -->
-	<input type="text" v-bind:value="vueValue" />
-	
-	<!-- 同样的表达式，在标签体内通过{{}}告诉Vue这里需要渲染； -->
-	<!-- 在HTML标签的属性中，通过v-bind:属性名="表达式"的方式告诉Vue这里要渲染 -->
-	<p>{{vueValue}}</p>
+    <!-- v-bind:value表示将value属性交给Vue来进行管理，也就是绑定到Vue对象 -->
+    <!-- vueValue是一个用来渲染属性值的表达式，相当于标签体中加{{}}的表达式 -->
+    <input type="text" v-bind:value="vueValue" />
+
+    <!-- 同样的表达式，在标签体内通过{{}}告诉Vue这里需要渲染； -->
+    <!-- 在HTML标签的属性中，通过v-bind:属性名="表达式"的方式告诉Vue这里要渲染 -->
+    <p>{{vueValue}}</p>
 </div>
 
 ```
@@ -133,10 +133,10 @@ v-bind:HTML标签的原始属性名
 ```javascript
 // 创建Vue对象，挂载#app这个div标签
 var app = new Vue({
-	"el":"#app",
-	"data":{
-		"vueValue":"太阳当空照"
-	}
+    "el":"#app",
+    "data":{
+        "vueValue":"太阳当空照"
+    }
 });
 ```
 
@@ -146,23 +146,23 @@ var app = new Vue({
 
 ```html
 <div id="app">
-        <p v-bind:style="fontCss">Vue and CSS</p>
-    </div>
+    <p v-bind:style="fontCss">Vue and CSS</p>
+</div>
 
 ```
 
 **Vue代码**
 
-```javascript
+```v
 new Vue({
-        "el":"#app",
-        "data":{
-            "fontCss":{
-                "color":"red",
-                "font-size":"30px",
-            },
+    "el":"#app",
+    "data":{
+        "fontCss":{
+            "color":"red",
+            "font-size":"30px",
         },
-    });
+    },
+});
 ```
 
 **扩展:**
@@ -173,7 +173,7 @@ v-bind:属性名="属性值"可以简写成 :属性名="属性值"
 
 ##### 1.4.1 提出问题
 
-<img src="images/img006.png" alt="images" style="zoom:50%;" />
+<img src="https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/img006.png" alt="images" style="zoom:50%;" />
 
 而使用了双向绑定后，就可以实现：页面上数据被修改后，Vue对象中的数据属性也跟着被修改。
 
@@ -183,11 +183,11 @@ v-bind:属性名="属性值"可以简写成 :属性名="属性值"
 
 ```html
 <div id="app">
-	<!-- v-bind:属性名 效果是从Vue对象渲染到页面 -->
-	<!-- v-model:属性名 效果不仅是从Vue对象渲染到页面，而且能够在页面上数据修改后反向修改Vue对象中的数据属性 -->
-	<input type="text" v-model:value="vueValue" />
-	
-	<p>{{vueValue}}</p>
+    <!-- v-bind:属性名 效果是从Vue对象渲染到页面 -->
+    <!-- v-model:属性名 效果不仅是从Vue对象渲染到页面，而且能够在页面上数据修改后反向修改Vue对象中的数据属性 -->
+    <input type="text" v-model:value="vueValue" />
+
+    <p>{{vueValue}}</p>
 </div>
 ```
 
@@ -196,10 +196,10 @@ v-bind:属性名="属性值"可以简写成 :属性名="属性值"
 ```javascript
 // 创建Vue对象，挂载#app这个div标签
 var app = new Vue({
-	"el":"#app",
-	"data":{
-		"vueValue":"太阳当空照"
-	}
+    "el":"#app",
+    "data":{
+        "vueValue":"太阳当空照"
+    }
 });
 ```
 
@@ -207,7 +207,7 @@ var app = new Vue({
 
 p标签内的数据能够和文本框中的数据实现同步修改：
 
-![images](images/img007.png)
+![images](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/img007.png)
 
 **扩展:**
 
@@ -233,9 +233,9 @@ Vue会帮助我们在文本框失去焦点时自动去除前后空格。
 
 ```html
 <div id="app">
-	<h3>if</h3>
-	<img v-if="flag" src="/pro03-vue/images/one.jpg" />
-	<img v-if="!flag" src="/pro03-vue/images/two.jpg" />
+    <h3>if</h3>
+    <img v-if="flag" src="/pro03-vue/images/one.jpg" />
+    <img v-if="!flag" src="/pro03-vue/images/two.jpg" />
 </div>
 ```
 
@@ -256,9 +256,9 @@ var app = new Vue({
 
 ```html
 <div id="app02">
-	<h3>if/else</h3>
-	<img v-if="flag" src="/pro03-vue/images/one.jpg" />
-	<img v-else="flag" src="/pro03-vue/images/two.jpg" />
+    <h3>if/else</h3>
+    <img v-if="flag" src="/pro03-vue/images/one.jpg" />
+    <img v-else="flag" src="/pro03-vue/images/two.jpg" />
 </div>
 ```
 
@@ -279,8 +279,8 @@ var app02 = new Vue({
 
 ```html
 <div id="app03">
-	<h3>v-show</h3>
-	<img v-show="flag" src="/pro03-vue/images/mi.jpg" />
+    <h3>v-show</h3>
+    <img v-show="flag" src="/pro03-vue/images/mi.jpg" />
 </div>
 ```
 
@@ -303,12 +303,12 @@ var app03 = new Vue({
 
 ```html
 <div id="app01">
-	<ul>
-		<!-- 使用v-for语法遍历数组 -->
-		<!-- v-for的值是语法格式是：引用数组元素的变量名 in Vue对象中的数组属性名 -->
-		<!-- 在文本标签体中使用{{引用数组元素的变量名}}渲染每一个数组元素 -->
-		<li v-for="fruit in fruitList">{{fruit}}</li>
-	</ul>
+    <ul>
+        <!-- 使用v-for语法遍历数组 -->
+        <!-- v-for的值是语法格式是：引用数组元素的变量名 in Vue对象中的数组属性名 -->
+        <!-- 在文本标签体中使用{{引用数组元素的变量名}}渲染每一个数组元素 -->
+        <li v-for="fruit in fruitList">{{fruit}}</li>
+    </ul>
 </div>
 ```
 
@@ -316,16 +316,16 @@ var app03 = new Vue({
 
 ```javascript
 var app01 = new Vue({
-	"el":"#app01",
-	"data":{
-		"fruitList": [
-			"apple",
-			"banana",
-			"orange",
-			"grape",
-			"dragonfruit"
-		]
-	}
+    "el":"#app01",
+    "data":{
+        "fruitList": [
+            "apple",
+            "banana",
+            "orange",
+            "grape",
+            "dragonfruit"
+        ]
+    }
 });
 ```
 
@@ -335,21 +335,21 @@ var app01 = new Vue({
 
 ```html
 <div id="app">
-	<table>
-		<tr>
-			<th>编号</th>
-			<th>姓名</th>
-			<th>年龄</th>
-			<th>专业</th>
-		</tr>
+    <table>
+        <tr>
+            <th>编号</th>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>专业</th>
+        </tr>
         <!-- index变量在这段代码中没有直接使用，但它可以用于获取当前循环的索引值。如果需要在循环中访问当前元素的索引，可以使用index变量 -->
-		<tr v-for="(employee,index) in employeeList">
-			<td>{{employee.empId}}</td>
-			<td>{{employee.empName}}</td>
-			<td>{{employee.empAge}}</td>
-			<td>{{employee.empSubject}}</td>
-		</tr>
-	</table>
+        <tr v-for="(employee,index) in employeeList">
+            <td>{{employee.empId}}</td>
+            <td>{{employee.empName}}</td>
+            <td>{{employee.empAge}}</td>
+            <td>{{employee.empSubject}}</td>
+        </tr>
+    </table>
 </div>
 ```
 
@@ -357,29 +357,29 @@ var app01 = new Vue({
 
 ```javascript
 var app = new Vue({
-	"el":"#app",
-	"data":{
-		"employeeList":[
-			{
-				"empId":11,
-				"empName":"tom",
-				"empAge":111,
-				"empSubject":"java"
-			},
-			{
-				"empId":22,
-				"empName":"jerry",
-				"empAge":222,
-				"empSubject":"php"
-			},
-			{
-				"empId":33,
-				"empName":"bob",
-				"empAge":333,
-				"empSubject":"python"
-			}
-		]
-	}
+    "el":"#app",
+    "data":{
+        "employeeList":[
+            {
+                "empId":11,
+                "empName":"tom",
+                "empAge":111,
+                "empSubject":"java"
+            },
+            {
+                "empId":22,
+                "empName":"jerry",
+                "empAge":222,
+                "empSubject":"php"
+            },
+            {
+                "empId":33,
+                "empName":"bob",
+                "empAge":333,
+                "empSubject":"python"
+            }
+        ]
+    }
 });
 ```
 
@@ -391,7 +391,7 @@ var app = new Vue({
 
 ```html
 <div id="app">
-     <input type="button" value="clickTest" v-on:click="clickTest"/>
+    <input type="button" value="clickTest" v-on:click="clickTest"/>
 </div>
 ```
 
@@ -414,8 +414,8 @@ new Vue({
 
 ```html
 <div id="app">
-        <input type="text" v-model="username" v-on:change="changeTest"/>
-    </div>
+    <input type="text" v-model="username" v-on:change="changeTest"/>
+</div>
 ```
 
 **Vue代码**
@@ -489,13 +489,13 @@ document.getElementById("submitBtn").onclick = function(ev) {
 
 #####  1.7.4 阻止事件冒泡
 
-<img src="images/img014.png" alt="images" style="zoom:50%;" />
+<img src="https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/img014.png" alt="images" style="zoom:50%;" />
 
 图中的两个div，他们的HTML标签是：
 
 ```html
 <div id="outterDiv">
-	<div id="innerDiv"></div>
+    <div id="innerDiv"></div>
 </div>
 ```
 
@@ -503,11 +503,11 @@ document.getElementById("submitBtn").onclick = function(ev) {
 
 ```javascript
 document.getElementById("outterDiv").onclick = function() {
-	console.log("外层div的事件触发了");
+    console.log("外层div的事件触发了");
 }
 
 document.getElementById("innerDiv").onclick = function() {
-	console.log("内层div的事件触发了");
+    console.log("内层div的事件触发了");
 }
 
 ```
@@ -518,9 +518,9 @@ document.getElementById("innerDiv").onclick = function() {
 
 ```javascript
 document.getElementById("innerDiv").onclick = function(ev) {
-	console.log("内层div的事件触发了");
-	
-	ev.stopPropagation();
+    console.log("内层div的事件触发了");
+
+    ev.stopPropagation();
 }
 ```
 
@@ -543,7 +543,7 @@ document.getElementById("innerDiv").onclick = function(ev) {
 <a href="http://www.baidu.com" @click.prevent="clickAnchor">超链接</a>
 
 <form action="http://www.baidu.com" method="post">
-	<button type="submit" @click.prevent="clickSubmitBtn">提交表单</button>
+    <button type="submit" @click.prevent="clickSubmitBtn">提交表单</button>
 </form>
 ```
 
@@ -553,7 +553,7 @@ document.getElementById("innerDiv").onclick = function(ev) {
 
 ```html
 <div id="outterDiv" @click="clickOutterDiv">
-	<div id="innerDiv" @click.stop="clickInnerDiv"></div>
+    <div id="innerDiv" @click.stop="clickInnerDiv"></div>
 </div>
 ```
 
@@ -563,11 +563,11 @@ document.getElementById("innerDiv").onclick = function(ev) {
 
 ```html
 <div id="app">
-	<p>尊姓：{{firstName}}</p>
-	<p>大名：{{lastName}}</p>
-	尊姓：<input type="text" v-model="firstName" /><br/>
-	大名：<input type="text" v-model="lastName" /><br/>
-	<p>全名：{{fullName}}</p>
+    <p>尊姓：{{firstName}}</p>
+    <p>大名：{{lastName}}</p>
+    尊姓：<input type="text" v-model="firstName" /><br/>
+    大名：<input type="text" v-model="lastName" /><br/>
+    <p>全名：{{fullName}}</p>
 </div>
 ```
 
@@ -581,20 +581,20 @@ document.getElementById("innerDiv").onclick = function(ev) {
 
 ```javascript
 var app = new Vue({
-	"el":"#app",
-	"data":{
-		"firstName":"jim",
-		"lastName":"green",
-		"fullName":"jim green"
-	},
-	"watch":{
-		"firstName":function(inputValue){
-			this.fullName = inputValue + " " + this.lastName;
-		},
-		"lastName":function(inputValue){
-			this.fullName = this.firstName + " " + inputValue;
-		}
-	}
+    "el":"#app",
+    "data":{
+        "firstName":"jim",
+        "lastName":"green",
+        "fullName":"jim green"
+    },
+    "watch":{
+        "firstName":function(inputValue){
+            this.fullName = inputValue + " " + this.lastName;
+        },
+        "lastName":function(inputValue){
+            this.fullName = this.firstName + " " + inputValue;
+        }
+    }
 });
 ```
 
@@ -606,7 +606,7 @@ var app = new Vue({
 
 ##### 1.9.2 Vue对象的生命周期
 
-<img src="images/img008.png" alt="images" style="zoom:50%;" />
+<img src="https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/img008.png" alt="images" style="zoom:50%;" />
 
 ##### 1.9.3 生命周期钩子函数
 
@@ -614,44 +614,44 @@ Vue允许我们在特定的生命周期环节中通过钩子函数来加入我�
 
 ```html
 <div id="app">
-	<p id="content">{{message}}</p>
-	<button @click="changeValue">点我</button>
+    <p id="content">{{message}}</p>
+    <button @click="changeValue">点我</button>
 </div>
 ```
 
 ```javascript
 new Vue({
-	"el":"#app",
-	"data":{
-		"message":"hello"
-	},
-	"methods":{
-		"changeValue":function(){
-			this.message = "new hello";
-		}
-	},
-	
-	// 1.实例创建之前
-	"beforeCreate":function(){
-		console.log("beforeCreate:"+this.message);
-	},
-	
-	// 2.实例创建完成
-	"created":function(){
-		console.log("created:"+this.message);
-	},
-	
-	// 3.数据挂载前
-	"beforeMount":function(){
-		console.log("beforeMount:"+document.getElementById("content").innerText);
-	},
-	
-	// 4.数据已经挂载
-	"mounted":function(){
-		console.log("mounted:"+document.getElementById("content").innerText);
-	},
-	
-	
+    "el":"#app",
+    "data":{
+        "message":"hello"
+    },
+    "methods":{
+        "changeValue":function(){
+            this.message = "new hello";
+        }
+    },
+
+    // 1.实例创建之前
+    "beforeCreate":function(){
+        console.log("beforeCreate:"+this.message);
+    },
+
+    // 2.实例创建完成
+    "created":function(){
+        console.log("created:"+this.message);
+    },
+
+    // 3.数据挂载前
+    "beforeMount":function(){
+        console.log("beforeMount:"+document.getElementById("content").innerText);
+    },
+
+    // 4.数据已经挂载
+    "mounted":function(){
+        console.log("mounted:"+document.getElementById("content").innerText);
+    },
+
+
 });
 ```
 
