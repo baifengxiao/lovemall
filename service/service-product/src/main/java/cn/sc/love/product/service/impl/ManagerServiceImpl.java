@@ -454,5 +454,13 @@ public class ManagerServiceImpl implements ManagerService {
         return spuPosterList;
     }
 
+    @Override
+    public List<BaseAttrInfo> getAttrList(Long skuId) {
+
+        List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.getAttrList(skuId);
+
+        return baseAttrInfoList;
+    }
+
 
 }

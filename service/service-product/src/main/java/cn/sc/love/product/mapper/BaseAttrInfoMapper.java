@@ -23,4 +23,5 @@ public interface BaseAttrInfoMapper extends BaseMapper<BaseAttrInfo> {
     List<BaseAttrInfo> selectAttrInfoList(Long category1Id, Long category2Id, Long category3Id);
 
 
+    List<BaseAttrInfo> getAttrList(Long skuId);
 }

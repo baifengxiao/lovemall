@@ -1,9 +1,6 @@
 package cn.sc.love.product.controller;
 
-import cn.sc.love.model.product.BaseCategoryView;
-import cn.sc.love.model.product.SkuInfo;
-import cn.sc.love.model.product.SpuPoster;
-import cn.sc.love.model.product.SpuSaleAttr;
+import cn.sc.love.model.product.*;
 import cn.sc.love.product.service.ManagerService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -28,6 +25,13 @@ public class ProductApiController {
 
     @Autowired
     private ManagerService managerService;
+
+    @ApiOperation("根据skuId获取选中销售属性")
+    @GetMapping("/getAttrList/{skuId}")
+    public List<BaseAttrInfo> getAttrList(@PathVariable Long skuId) {
+        List<BaseAttrInfo> list = managerService.getAttrList(skuId);
+        return list;
+    }
 
     @ApiOperation("根据spuid获取海报集合")
     @GetMapping("/findSpuPosterBySpuId/{spuId}")

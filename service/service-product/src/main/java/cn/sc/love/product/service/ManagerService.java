@@ -55,4 +55,6 @@ public interface ManagerService {
     Map getSkuValueIdsMap(Long spuId);
 
     List<SpuPoster> findSpuPosterBySpuId(Long spuId);
+
+    List<BaseAttrInfo> getAttrList(Long skuId);
 }

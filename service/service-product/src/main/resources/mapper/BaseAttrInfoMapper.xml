@@ -35,4 +35,21 @@
         order by bai.category_level ,bai.id
 
     </select>
+    <select id="getAttrList" resultMap="baseAttrInfoMap">
+
+        --         #根据skuid查询平台属性和平台属性值
+        SELECT bai.`id`,
+               bai.`attr_name`,
+               bai.`category_id`,
+               bai.`category_level`,
+               bav.`id`,
+               bav.`value_name`,
+               bav.`attr_id`
+        FROM `base_attr_info` bai
+                 INNER JOIN `base_attr_value` bav
+                            ON bav.`attr_id` = bai.`id`
+                 INNER JOIN `sku_attr_value` skv
+                            ON skv.value_id = bav.`id`
+        WHERE skv.sku_id = ${skuId}
+    </select>
 </mapper>
