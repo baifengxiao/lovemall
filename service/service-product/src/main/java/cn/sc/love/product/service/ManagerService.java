@@ -4,7 +4,9 @@ import cn.sc.love.model.product.*;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author YPT
@@ -45,4 +47,12 @@ public interface ManagerService {
     SkuInfo getSkuInfo(Long skuId);
 
     BaseCategoryView getCategoryView(Long category3Id);
+
+    BigDecimal getSkuPrice(Long skuId);
+
+    List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId);
+
+    Map getSkuValueIdsMap(Long spuId);
+
+    List<SpuPoster> findSpuPosterBySpuId(Long spuId);
 }

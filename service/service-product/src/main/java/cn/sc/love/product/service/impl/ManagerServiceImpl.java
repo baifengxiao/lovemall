@@ -12,7 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author YPT
@@ -411,6 +414,44 @@ public class ManagerServiceImpl implements ManagerService {
 
         return baseCategoryViewMapper.selectById(category3Id);
 
+    }
+
+    @Override
+    public BigDecimal getSkuPrice(Long skuId) {
+
+        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+        if (skuInfo != null) {
+            return skuInfo.getPrice();
+        }
+        return null;
+    }
+
+    @Override
+    public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
+
+        return spuSaleAttrMapper.getSpuSaleAttrListCheckBySku(skuId, spuId);
+    }
+
+    @Override
+    public Map getSkuValueIdsMap(Long spuId) {
+        List<Map> mapList = skuSaleAttrValueMapper.getSkuValueIdsMap(spuId);
+
+        Map<Object, Object> resultMap = new HashMap<>();
+
+        if (!CollectionUtils.isEmpty(mapList)) {
+            for (Map map : mapList) {
+                resultMap.put(map.get("value_ids"), map.get("sku_id"));
+            }
+        }
+        return resultMap;
+    }
+
+    @Override
+    public List<SpuPoster> findSpuPosterBySpuId(Long spuId) {
+        QueryWrapper<SpuPoster> wrapper = new QueryWrapper<>();
+        wrapper.eq("spu_id", spuId);
+        List<SpuPoster> spuPosterList = spuPosterMapper.selectList(wrapper);
+        return spuPosterList;
     }
 
 
