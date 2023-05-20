@@ -26,6 +26,7 @@ public class ProductApiController {
     @Autowired
     private ManagerService managerService;
 
+    //这七个不是最终结果，不用包装一层result
     @ApiOperation("根据skuId获取选中销售属性")
     @GetMapping("/getAttrList/{skuId}")
     public List<BaseAttrInfo> getAttrList(@PathVariable Long skuId) {
