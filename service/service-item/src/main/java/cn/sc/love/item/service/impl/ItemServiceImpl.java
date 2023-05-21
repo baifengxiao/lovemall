@@ -3,6 +3,7 @@ package cn.sc.love.item.service.impl;
 import cn.sc.love.item.service.ItemService;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.client.ProductFeignClient;
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @author YPT
@@ -44,8 +46,8 @@ public class ItemServiceImpl implements ItemService {
 
             resultMap.put("spuSaleAttrList", spuSaleAttrList);
             //获取商品切换数据
-            Map valuesSkuJson = productFeignClient.getSkuValueIdsMap(skuInfo.getSpuId());
-            resultMap.put("valuesSkuJson", valuesSkuJson);
+            Map skuValueIdsMap = productFeignClient.getSkuValueIdsMap(skuInfo.getSpuId());
+            resultMap.put("valuesSkuJson", JSON.toJSONString(skuValueIdsMap));
 
             //获取海报信息
             List<SpuPoster> spuPosterList = productFeignClient.findSpuPosterBySpuId(skuInfo.getSpuId());
@@ -55,8 +57,14 @@ public class ItemServiceImpl implements ItemService {
 
         //获取平台信息
         List<BaseAttrInfo> skuAttrList = productFeignClient.getAttrList(skuId);
-        resultMap.put("skuAttrList", skuAttrList);
+        List<Map<String, String>> spuAttrList = skuAttrList.stream().map(baseAttrInfo -> {
 
+            Map<String, String> map = new HashMap<>();
+            map.put("attrName", baseAttrInfo.getAttrName());
+            map.put("attrValue", baseAttrInfo.getAttrValueList().get(0).getValueName());
+            return map;
+        }).collect(Collectors.toList());
+        resultMap.put("spuAttrList", spuAttrList);
         return resultMap;
     }
 }
