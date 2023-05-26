@@ -1,22 +1,3 @@
-### 张春胜：13260166090【微信同号（备注：SG_220106_张三）】
-
-### 回顾：JavaSE   JavaWeb   SSM阶段   高级   项目阶段 ....
-
-> #### JavaSE
->
-> - JDK  变量  数据类型  运算符  流程控制  数组   类和对象【JavaOOP】 集合与泛型  IO  常用类  **反射**  设计模式
->
->   网络编程   JDBC  Mysql ...
->
-> #### JavaWeb【B/S】
->
-> - 浏览器：HTML、CSS、JavaScript、Vue、Axios、Cookie ...
-> - 服务器：Tomcat、Http、**Servlet、Filter、Listener**、Session、Thymeleaf...
->
-> ### SSM【Spring  SpringMVC  Mybatis】
-
-
-
 ### Maven
 
 ### 第一章 为什么使用Maven
@@ -31,7 +12,7 @@
   - 使用Maven之前，将jar复制到项目工程中，jar包添加到项目中，相对浪费存储空间
   - 使用Maven之后，jar包统一存储Maven本地仓库，使用坐标方式将jar包从仓库引入到项目中
 
-  ![image-20220320091431579](01_Maven.assets\image-20220320091431579.png)
+  ![image-20220320091431579](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20220320091431579.png)
 
 - 使用Maven便于解决jar包**冲突及依赖**问题
 
@@ -149,15 +130,15 @@
 
 #### 4.1 将Maven整合到IDEA中
 
-![image-20220320104957163](01_Maven.assets\image-20220320104957163.png)
+![image-20220320104957163](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20220320104957163.png)
 
-![image-20220320105010404](01_Maven.assets\image-20220320105010404.png)
+![image-20220320105010404](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20220320105010404.png)
 
 #### 4.2 在IDEA中新建Maven工程
 
-![image-20220320113913242](01_Maven.assets\image-20220320113913242.png)
+![image-20220320113913242](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20220320113913242.png)
 
-![image-20220320113928189](01_Maven.assets\image-20220320113928189.png)
+![image-20220320113928189](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20220320113928189.png)
 
 
 
@@ -214,7 +195,7 @@
   - **Default LifeCycle：构建的核心部分，编译，测试，打包，安装，部署等等。**
   - Site LifeCycle：生成项目报告，站点，发布站点。
 
-![image-20220320143031010](01_Maven.assets\image-20220320143031010.png)
+![image-20220320143031010](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20220320143031010.png)
 
 #### 5.4 Maven插件和目标
 
@@ -378,11 +359,12 @@
   </dependencies>
   ```
 
-- **注意：在子工程中，不能指定版本号**
+- ==**注意：在子工程中，不能指定版本号**==
 
 ### 第八章 Maven的聚合
 
 - 为什么使用Maven的聚合
+
   - 优势：只要将子工程聚合到父工程中，就可以实现效果：安装或清除父工程时，子工程会进行同步操作。
   - 注意：Maven会按照依赖顺序自动安装子工程
 
@@ -395,26 +377,6 @@
       <module>MakeFriend</module>
   </modules>
   ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### 练习时间：
-
-1. Maven坐标&依赖
-
-
 
 
 
