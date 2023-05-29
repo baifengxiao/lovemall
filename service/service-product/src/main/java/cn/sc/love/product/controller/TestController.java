@@ -25,4 +25,18 @@ public class TestController {
         return Result.ok();
     }
 
+    @GetMapping("/read")
+    public Result read() {
+
+        String msg = testService.readLock();
+        return Result.ok(msg);
+    }
+
+    @GetMapping("/write")
+    public Result writeLock() {
+
+        String msg = testService.writeLock();
+        return Result.ok(msg);
+    }
+
 }
