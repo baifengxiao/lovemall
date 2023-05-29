@@ -422,12 +422,12 @@ public class ManagerServiceImpl implements ManagerService {
 
                             //TODO 这里不直接存储null，防止上面将null强转成skuinfo报错：
                             // SkuInfo skuInfo = (SkuInfo) redisTemplate.opsForValue().get(skuKey);
-                            redisTemplate.opsForValue().set(skuKey, skuInfo, RedisConst.SKUKEY_TEMPORARY_TIMEOUT);
+                            redisTemplate.opsForValue().set(skuKey, skuInfo, RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
                             return skuInfo;
                         } else {
 
                             //存储
-                            redisTemplate.opsForValue().set(skuKey, skuInfo, RedisConst.SKUKEY_TIMEOUT);
+                            redisTemplate.opsForValue().set(skuKey, skuInfo, RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
                             return skuInfo;
                         }
                     } finally {
@@ -508,13 +508,13 @@ public class ManagerServiceImpl implements ManagerService {
                         //避免缓存穿透，空值放入缓存
                         SkuInfo skuInfo1 = new SkuInfo();
 
-                        redisTemplate.opsForValue().set(skuKey, skuInfo1, RedisConst.SKUKEY_TEMPORARY_TIMEOUT, TimeUnit.SECONDS);
+                        redisTemplate.opsForValue().set(skuKey, skuInfo1);
                         return skuInfo1;
                     }
                     //数据库查询数据不为空
 
                     //存储到缓存
-                    redisTemplate.opsForValue().set(skuKey, skuInfoDB, RedisConst.SKUKEY_TIMEOUT, TimeUnit.SECONDS);
+                    redisTemplate.opsForValue().set(skuKey, skuInfoDB);
 
 
                     //Lua脚本
