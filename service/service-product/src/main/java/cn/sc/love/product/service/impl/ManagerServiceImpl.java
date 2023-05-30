@@ -1,6 +1,7 @@
 package cn.sc.love.product.service.impl;
 
 
+import cn.sc.love.common.cache.GmallCache;
 import cn.sc.love.common.constant.RedisConst;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.mapper.*;
@@ -374,12 +375,13 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    @GmallCache(prefix = "sku:")  //key   sku:1314:info
     public SkuInfo getSkuInfo(Long skuId) {
 
 
-//        return getInfoDB(skuId);
+        return getSkuInfoDB(skuId);
 //        return getSkuInfoRedis(skuId);
-        return getSkuInfoRedisson(skuId);
+//        return getSkuInfoRedisson(skuId);
 
     }
 
@@ -552,6 +554,7 @@ public class ManagerServiceImpl implements ManagerService {
      * @param skuId
      * @return
      */
+
     private SkuInfo getSkuInfoDB(Long skuId) {
         SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
 
