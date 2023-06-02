@@ -4,6 +4,7 @@ import cn.sc.love.item.service.ItemService;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.client.ProductFeignClient;
 import com.alibaba.fastjson.JSON;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,10 +25,20 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ProductFeignClient productFeignClient;
 
+    @Autowired
+    private RedissonClient redissonClient;
+
     @Override
     public HashMap<String, Object> getItem(Long skuId) {
         HashMap<String, Object> resultMap = new HashMap<>();
 
+        //判断数据是否存在布隆过滤器
+//        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(RedisConst.SKU_BLOOM_FILTER);
+//        if (!bloomFilter.contains(skuId)){
+//
+//            //不存在的skuId,直接返回空值,终止方法执行
+//            return resultMap;
+//        }
 
         //获取sku信息和图片列表
         SkuInfo skuInfo = productFeignClient.getSkuInfo(skuId);

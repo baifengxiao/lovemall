@@ -9,6 +9,7 @@ import cn.sc.love.product.service.ManagerService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.redisson.api.RBloomFilter;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -337,6 +338,11 @@ public class ManagerServiceImpl implements ManagerService {
             }
         }
 
+
+        //布隆过滤器
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(RedisConst.SKU_BLOOM_FILTER);
+        //添加数据
+        bloomFilter.add(skuInfo.getId());
 
         //4，保存sku图片集合
 
