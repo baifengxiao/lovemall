@@ -338,12 +338,6 @@ public class ManagerServiceImpl implements ManagerService {
             }
         }
 
-
-        //布隆过滤器
-        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(RedisConst.SKU_BLOOM_FILTER);
-        //添加数据
-        bloomFilter.add(skuInfo.getId());
-
         //4，保存sku图片集合
 
         List<SkuImage> skuImageList = skuInfo.getSkuImageList();
@@ -354,6 +348,11 @@ public class ManagerServiceImpl implements ManagerService {
                 skuImageMapper.insert(skuImage);
             }
         }
+
+        //添加数据的时候，加上布隆过滤器
+        RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(RedisConst.SKU_BLOOM_FILTER);
+        //添加数据
+        bloomFilter.add(skuInfo.getId());
     }
 
     @Override
