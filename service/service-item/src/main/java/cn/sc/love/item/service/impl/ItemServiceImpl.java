@@ -12,6 +12,10 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -28,6 +32,9 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private RedissonClient redissonClient;
 
+    @Autowired
+    private ThreadPoolExecutor executor;
+
     @Override
     public HashMap<String, Object> getItem(Long skuId) {
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -40,42 +47,83 @@ public class ItemServiceImpl implements ItemService {
 //            return resultMap;
 //        }
 
-        //获取sku信息和图片列表
-        SkuInfo skuInfo = productFeignClient.getSkuInfo(skuId);
-        resultMap.put("skuInfo", skuInfo);
-        //获取实时价格
-        BigDecimal skuPrice = productFeignClient.getSkuPrice(skuId);
-
-        resultMap.put("price", skuPrice);
-
-        if (skuInfo != null) {
-            //获取三级分类
-            BaseCategoryView categoryView = productFeignClient.getCategoryView(skuInfo.getCategory3Id());
-            resultMap.put("categoryView", categoryView);
-            //获取销售属性和选中状态
-            List<SpuSaleAttr> spuSaleAttrList = productFeignClient.getSpuSaleAttrListCheckBySku(skuId, skuInfo.getSpuId());
-
-            resultMap.put("spuSaleAttrList", spuSaleAttrList);
-            //获取商品切换数据
-            Map skuValueIdsMap = productFeignClient.getSkuValueIdsMap(skuInfo.getSpuId());
-            resultMap.put("valuesSkuJson", JSON.toJSONString(skuValueIdsMap));
-
-            //获取海报信息
-            List<SpuPoster> spuPosterList = productFeignClient.findSpuPosterBySpuId(skuInfo.getSpuId());
-            resultMap.put("spuPosterList", spuPosterList);
-        }
+        CompletableFuture<SkuInfo> skuInfoCompletableFuture = CompletableFuture.supplyAsync(new Supplier<SkuInfo>() {
+            @Override
+            public SkuInfo get() {
+                //获取sku信息和图片列表
+                SkuInfo skuInfo = productFeignClient.getSkuInfo(skuId);
+                resultMap.put("skuInfo", skuInfo);
+                return skuInfo;
+            }
+        }, executor);
 
 
-        //获取平台信息
-        List<BaseAttrInfo> skuAttrList = productFeignClient.getAttrList(skuId);
-        List<Map<String, String>> spuAttrList = skuAttrList.stream().map(baseAttrInfo -> {
+        CompletableFuture<Void> skuPriceCompletableFuture = CompletableFuture.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                //获取实时价格
+                BigDecimal skuPrice = productFeignClient.getSkuPrice(skuId);
+                resultMap.put("price", skuPrice);
+            }
+        }, executor);
 
-            Map<String, String> map = new HashMap<>();
-            map.put("attrName", baseAttrInfo.getAttrName());
-            map.put("attrValue", baseAttrInfo.getAttrValueList().get(0).getValueName());
-            return map;
-        }).collect(Collectors.toList());
-        resultMap.put("spuAttrList", spuAttrList);
+        //和上一个操作 skuInfoCompletableFuture是一组操作，拿到结果categoryView
+        CompletableFuture<Void> categoryViewCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(new Consumer<SkuInfo>() {
+            @Override
+            public void accept(SkuInfo skuInfo) {
+                //获取三级分类
+                BaseCategoryView categoryView = productFeignClient.getCategoryView(skuInfo.getCategory3Id());
+                resultMap.put("categoryView", categoryView);
+            }
+        }, executor);
+
+        CompletableFuture<Void> spuSaleAttrListCheckBySkuCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(new Consumer<SkuInfo>() {
+
+            @Override
+            public void accept(SkuInfo skuInfo) {
+                //获取销售属性和选中状态
+                List<SpuSaleAttr> spuSaleAttrList = productFeignClient.getSpuSaleAttrListCheckBySku(skuId, skuInfo.getSpuId());
+                resultMap.put("spuSaleAttrList", spuSaleAttrList);
+            }
+        }, executor);
+        CompletableFuture<Void> skuValueIdsMapCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(new Consumer<SkuInfo>() {
+
+            @Override
+            public void accept(SkuInfo skuInfo) {
+                //获取商品切换数据
+                Map skuValueIdsMap = productFeignClient.getSkuValueIdsMap(skuInfo.getSpuId());
+                resultMap.put("valuesSkuJson", JSON.toJSONString(skuValueIdsMap));
+            }
+        }, executor);
+        CompletableFuture<Void> findSpuPosterBySpuIdCompletableFuture = skuInfoCompletableFuture.thenAcceptAsync(new Consumer<SkuInfo>() {
+
+            @Override
+            public void accept(SkuInfo skuInfo) {
+                //获取海报信息
+                List<SpuPoster> spuPosterList = productFeignClient.findSpuPosterBySpuId(skuInfo.getSpuId());
+                resultMap.put("spuPosterList", spuPosterList);
+            }
+        }, executor);
+
+
+        CompletableFuture<Void> attrListCompletableFuture = CompletableFuture.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                //获取平台信息
+                List<BaseAttrInfo> skuAttrList = productFeignClient.getAttrList(skuId);
+                List<Map<String, String>> spuAttrList = skuAttrList.stream().map(baseAttrInfo -> {
+
+                    Map<String, String> map = new HashMap<>();
+                    map.put("attrName", baseAttrInfo.getAttrName());
+                    map.put("attrValue", baseAttrInfo.getAttrValueList().get(0).getValueName());
+                    return map;
+                }).collect(Collectors.toList());
+                resultMap.put("spuAttrList", spuAttrList);
+            }
+        }, executor);
+
+//多任务组合，所有的异步任务完成才是完成
+        CompletableFuture.allOf(skuInfoCompletableFuture, skuPriceCompletableFuture, categoryViewCompletableFuture, findSpuPosterBySpuIdCompletableFuture, attrListCompletableFuture, skuValueIdsMapCompletableFuture, skuValueIdsMapCompletableFuture).join();
         return resultMap;
     }
 }
