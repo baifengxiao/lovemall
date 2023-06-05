@@ -612,11 +612,24 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public BigDecimal getSkuPrice(Long skuId) {
 
-        SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
-        if (skuInfo != null) {
-            return skuInfo.getPrice();
+        RLock lock = redissonClient.getLock(skuId + ":lock");
+
+
+        try {
+
+            //价格不走缓存，也加锁
+            lock.lock();
+
+            SkuInfo skuInfo = skuInfoMapper.selectById(skuId);
+            if (skuInfo != null) {
+                return skuInfo.getPrice();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            lock.unlock();
         }
-        return null;
+        return new BigDecimal("0");
     }
 
     @Override
