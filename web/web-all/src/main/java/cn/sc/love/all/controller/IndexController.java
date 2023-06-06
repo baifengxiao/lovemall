@@ -62,7 +62,7 @@ public class IndexController {
 
         FileWriter fileWriter = null;
         try {
-            fileWriter = new FileWriter("D:\\index.html");
+            fileWriter = new FileWriter("D:\\aaa\\index.html");
         } catch (IOException e) {
             e.printStackTrace();
         }

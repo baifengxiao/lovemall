@@ -708,7 +708,8 @@ public class ManagerServiceImpl implements ManagerService {
             ArrayList<JSONObject> categoryChild2 = new ArrayList<>();
 
             for (Map.Entry<Long, List<BaseCategoryView>> category2Entry : category2Map.entrySet()) {
-                Long categoryId = category2Entry.getKey();
+
+                Long category2Id = category2Entry.getKey();
                 List<BaseCategoryView> category3Result = category2Entry.getValue();
                 String category2Name = category3Result.get(0).getCategory2Name();
 
@@ -717,7 +718,7 @@ public class ManagerServiceImpl implements ManagerService {
 
 
                 category2Json.put("categoryName", category2Name);
-                category2Json.put("categoryId", categoryId);
+                category2Json.put("categoryId", category2Id);
 
                 //创建集合收集三级分类
                 ArrayList<JSONObject> categoryChild3 = new ArrayList<>();
@@ -729,8 +730,8 @@ public class ManagerServiceImpl implements ManagerService {
                     Long category3Id = baseCategoryView.getCategory3Id();
                     String category3Name = baseCategoryView.getCategory3Name();
 
-                    category3Json.put("category3Name", category3Name);
-                    category3Json.put("category3Id", category3Id);
+                    category3Json.put("categoryName", category3Name);
+                    category3Json.put("categoryId", category3Id);
 
                     //补全3级分类数据
                     categoryChild3.add(category3Json);
