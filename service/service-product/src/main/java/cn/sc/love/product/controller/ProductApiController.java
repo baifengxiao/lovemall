@@ -29,6 +29,8 @@ public class ProductApiController {
     private ManagerService managerService;
 
 
+
+    @ApiOperation("首页数据查询三级分类")
     @GetMapping("/getBaseCategoryList")
     public Result getBaseCategoryList() {
 

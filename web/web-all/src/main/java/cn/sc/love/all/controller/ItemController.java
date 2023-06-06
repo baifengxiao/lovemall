@@ -1,4 +1,4 @@
-package cn.sc.love.all;
+package cn.sc.love.all.controller;
 
 import cn.sc.love.common.result.Result;
 import cn.sc.love.item.client.ItemFeignClient;

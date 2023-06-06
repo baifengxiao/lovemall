@@ -1,5 +1,6 @@
 package cn.sc.love.product.client;
 
+import cn.sc.love.common.result.Result;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.client.impl.ProductDegradeFeignClient;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +20,10 @@ import java.util.Map;
 @FeignClient(value = "service-product", fallback = ProductDegradeFeignClient.class)
 public interface ProductFeignClient {
 
+
+    @ApiOperation("首页数据查询三级分类")
+    @GetMapping("/api/product/inner/getBaseCategoryList")
+    public Result getBaseCategoryList();
 
     @ApiOperation("根据skuId获取选中销售属性")
     @GetMapping("/api/product/inner/getAttrList/{skuId}")

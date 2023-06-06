@@ -1,7 +1,9 @@
 package cn.sc.love.product.client.impl;
 
+import cn.sc.love.common.result.Result;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.client.ProductFeignClient;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -16,10 +18,16 @@ import java.util.Map;
 //降级方法
 public class ProductDegradeFeignClient implements ProductFeignClient {
     @Override
+    public Result getBaseCategoryList() {
+        return Result.fail();
+    }
+
+    @Override
     public List<BaseAttrInfo> getAttrList(Long skuId) {
         return null;
     }
 
+    @ApiOperation("根据spuid获取海报集合")
     @Override
     public List<SpuPoster> findSpuPosterBySpuId(Long spuId) {
         return null;
