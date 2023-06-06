@@ -1,6 +1,7 @@
 package cn.sc.love.product.service;
 
 import cn.sc.love.model.product.*;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -57,4 +58,6 @@ public interface ManagerService {
     List<SpuPoster> findSpuPosterBySpuId(Long spuId);
 
     List<BaseAttrInfo> getAttrList(Long skuId);
+
+    List<JSONObject> getBaseCategoryList();
 }

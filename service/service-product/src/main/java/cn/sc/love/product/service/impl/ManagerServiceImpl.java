@@ -6,6 +6,7 @@ import cn.sc.love.common.constant.RedisConst;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.mapper.*;
 import cn.sc.love.product.service.ManagerService;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -22,6 +23,7 @@ import org.springframework.util.CollectionUtils;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * @author YPT
@@ -666,6 +668,86 @@ public class ManagerServiceImpl implements ManagerService {
         List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.getAttrList(skuId);
 
         return baseAttrInfoList;
+    }
+
+    @Override
+    @GmallCache(prefix = "baseCategoryList:lock")
+    public List<JSONObject> getBaseCategoryList() {
+
+        ArrayList<JSONObject> resultList = new ArrayList<>();
+
+        List<BaseCategoryView> baseCategoryViewList = baseCategoryViewMapper.selectList(null);
+
+//        分组包装成键值对，键是category1Id，值是category1Id对应的所有数据
+        Map<Long, List<BaseCategoryView>> category1Map = baseCategoryViewList.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory1Id));
+
+        int index = 1;
+
+        //分组后处理一级分类数据
+        for (Map.Entry<Long, List<BaseCategoryView>> entry : category1Map.entrySet()) {
+
+            //一级分类id
+            Long category1Id = entry.getKey();
+            //一级分类所有数据
+            List<BaseCategoryView> category2List = entry.getValue();
+            //一级分类名称
+            String category1Name = category2List.get(0).getCategory1Name();
+
+            JSONObject category1Json = new JSONObject();
+            //第一层
+            category1Json.put("index", index++);
+
+            //差一个categorychild
+            category1Json.put("categoryName", category1Name);
+            category1Json.put("categoryId", category1Id);
+
+            //封装二级分类
+            Map<Long, List<BaseCategoryView>> category2Map = category2List.stream().collect(Collectors.groupingBy(BaseCategoryView::getCategory2Id));
+
+            //创建一个封装二级分类的集合
+            ArrayList<JSONObject> categoryChild2 = new ArrayList<>();
+
+            for (Map.Entry<Long, List<BaseCategoryView>> category2Entry : category2Map.entrySet()) {
+                Long categoryId = category2Entry.getKey();
+                List<BaseCategoryView> category3Result = category2Entry.getValue();
+                String category2Name = category3Result.get(0).getCategory2Name();
+
+                JSONObject category2Json = new JSONObject();
+                //差一个categorychild    ，已补全：category2Json.put("categoryChild", categoryChild3);
+
+
+                category2Json.put("categoryName", category2Name);
+                category2Json.put("categoryId", categoryId);
+
+                //创建集合收集三级分类
+                ArrayList<JSONObject> categoryChild3 = new ArrayList<>();
+
+                //封装三级分类,没有重复的数据，直接存取
+                for (BaseCategoryView baseCategoryView : category3Result) {
+
+                    JSONObject category3Json = new JSONObject();
+                    Long category3Id = baseCategoryView.getCategory3Id();
+                    String category3Name = baseCategoryView.getCategory3Name();
+
+                    category3Json.put("category3Name", category3Name);
+                    category3Json.put("category3Id", category3Id);
+
+                    //补全3级分类数据
+                    categoryChild3.add(category3Json);
+                }
+                //补全2级分类数据
+                category2Json.put("categoryChild", categoryChild3);
+
+                //循环内收集
+                categoryChild2.add(category2Json);
+            }
+
+            //循环外封装
+            category1Json.put("categoryChild", categoryChild2);
+            resultList.add(category1Json);
+        }
+
+        return resultList;
     }
 
 

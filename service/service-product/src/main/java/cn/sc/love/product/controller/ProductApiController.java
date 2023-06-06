@@ -1,7 +1,9 @@
 package cn.sc.love.product.controller;
 
+import cn.sc.love.common.result.Result;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.service.ManagerService;
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,15 @@ public class ProductApiController {
 
     @Autowired
     private ManagerService managerService;
+
+
+    @GetMapping("/getBaseCategoryList")
+    public Result getBaseCategoryList() {
+
+        List<JSONObject> result = managerService.getBaseCategoryList();
+
+        return Result.ok(result);
+    }
 
     //这七个不是最终结果，不用包装一层result
     @ApiOperation("根据skuId获取选中销售属性")
