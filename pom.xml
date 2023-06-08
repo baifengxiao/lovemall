@@ -13,6 +13,7 @@
         <module>service-client</module>
         <module>web</module>
         <module>common/web-util</module>
+        <module>chatgpt</module>
     </modules>
 
     <!--引入spring boot 父工程-->
