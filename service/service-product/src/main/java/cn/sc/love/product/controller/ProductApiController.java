@@ -2,6 +2,7 @@ package cn.sc.love.product.controller;
 
 import cn.sc.love.common.result.Result;
 import cn.sc.love.model.product.*;
+import cn.sc.love.product.service.BaseTrademarkService;
 import cn.sc.love.product.service.ManagerService;
 import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
@@ -28,6 +29,15 @@ public class ProductApiController {
     @Autowired
     private ManagerService managerService;
 
+    @Autowired
+    private BaseTrademarkService trademarkService;
+
+    @ApiOperation("根据id查询品牌数据")
+    @GetMapping("/getTrademark/{tmId}")
+    public BaseTrademark getTrademark(Long tmId) {
+        BaseTrademark baseTrademark = trademarkService.getById(tmId);
+        return baseTrademark;
+    }
 
 
     @ApiOperation("首页数据查询三级分类")

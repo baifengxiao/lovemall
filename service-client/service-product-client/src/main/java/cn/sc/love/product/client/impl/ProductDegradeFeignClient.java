@@ -18,6 +18,11 @@ import java.util.Map;
 //降级方法
 public class ProductDegradeFeignClient implements ProductFeignClient {
     @Override
+    public BaseTrademark getTrademark(Long tmId) {
+        return null;
+    }
+
+    @Override
     public Result getBaseCategoryList() {
         return Result.fail();
     }

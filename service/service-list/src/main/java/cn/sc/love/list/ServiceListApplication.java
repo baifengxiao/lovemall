@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @EnableDiscoveryClient
 @ComponentScan({"cn.sc.love"})
-@EnableFeignClients
+@EnableFeignClients("cn.sc.love")
 public class ServiceListApplication {
     public static void main(String[] args) {
         SpringApplication.run(ServiceListApplication.class, args);

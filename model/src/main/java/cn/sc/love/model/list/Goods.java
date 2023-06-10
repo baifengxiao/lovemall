@@ -17,6 +17,15 @@ import java.util.List;
 //replicas，备份
 
 @Document(indexName = "goods", shards = 3, replicas = 2)
+
+/**
+ *包含：sku数据  根据id查询skuINfo
+ *  三级分类信息
+ * 品牌信息
+ *平台属性信息 根据skuid查询平台属性和平台属性值
+ *
+ *
+ */
 public class Goods {
 
 
