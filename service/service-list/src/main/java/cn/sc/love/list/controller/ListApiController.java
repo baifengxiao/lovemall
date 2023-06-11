@@ -26,6 +26,18 @@ public class ListApiController {
     @Autowired
     private SearchService searchService;
 
+    /**
+     * 热度排名
+     * @param skuId
+     * @return
+     */
+    @GetMapping("/inner/incrHotScore/{skuId}")
+    public Result incrHotScore(Long skuId) {
+
+        searchService.incrHotScore(skuId);
+        return Result.ok();
+    }
+
     @ApiOperation("商品下架")
     @GetMapping("/inner/lowerGoods/{skuId}")
     public Result lowerGoods(Long skuId) {

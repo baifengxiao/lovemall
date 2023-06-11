@@ -21,7 +21,7 @@ public class ItemApiController {
     @Autowired
     private ItemService itemService;
 
-    @GetMapping("{skuId}")
+    @GetMapping("/{skuId}")
     public Result getItem(@PathVariable Long skuId) {
         HashMap<String, Object> resultMap = itemService.getItem(skuId);
         return Result.ok(resultMap);

@@ -4,4 +4,6 @@ public interface SearchService {
     void upperGoods(Long skuId);
 
     void lowerGoods(Long skuId);
+
+    void incrHotScore(Long skuId);
 }

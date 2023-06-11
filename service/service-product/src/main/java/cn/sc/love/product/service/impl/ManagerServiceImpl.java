@@ -584,6 +584,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    @GmallCache(prefix="categoryView:")
     public BaseCategoryView getCategoryView(Long category3Id) {
 
         /**
@@ -612,6 +613,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+
     public BigDecimal getSkuPrice(Long skuId) {
 
         RLock lock = redissonClient.getLock(skuId + ":lock");
@@ -635,12 +637,14 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    @GmallCache(prefix="spuSaleAttrListCheckBySku:")
     public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
 
         return spuSaleAttrMapper.getSpuSaleAttrListCheckBySku(skuId, spuId);
     }
 
     @Override
+    @GmallCache(prefix="skuValueIdsMap:")
     public Map getSkuValueIdsMap(Long spuId) {
         List<Map> mapList = skuSaleAttrValueMapper.getSkuValueIdsMap(spuId);
 
@@ -655,6 +659,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    @GmallCache(prefix="findSpuPosterBySpuId:")
     public List<SpuPoster> findSpuPosterBySpuId(Long spuId) {
         QueryWrapper<SpuPoster> wrapper = new QueryWrapper<>();
         wrapper.eq("spu_id", spuId);
@@ -663,6 +668,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
+    @GmallCache(prefix="attrList:")
     public List<BaseAttrInfo> getAttrList(Long skuId) {
 
         List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.getAttrList(skuId);
@@ -671,7 +677,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    @GmallCache(prefix = "baseCategoryList:lock")
+    @GmallCache(prefix = "baseCategoryList:")
     public List<JSONObject> getBaseCategoryList() {
 
         ArrayList<JSONObject> resultList = new ArrayList<>();

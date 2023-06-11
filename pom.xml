@@ -15,6 +15,7 @@
         <module>common/web-util</module>
         <module>chatgpt</module>
         <module>service/service-list</module>
+        <module>service-client/service-list-client</module>
     </modules>
 
     <!--引入spring boot 父工程-->

@@ -9,11 +9,13 @@ import cn.sc.love.model.product.BaseTrademark;
 import cn.sc.love.model.product.SkuInfo;
 import cn.sc.love.product.client.ProductFeignClient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -27,6 +29,9 @@ public class SearchServiceImpl implements SearchService {
     private GoodsRepository goodsRepository;
     @Autowired
     private ProductFeignClient productFeignClient;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
 
     /**
@@ -98,5 +103,28 @@ public class SearchServiceImpl implements SearchService {
     @Override
     public void lowerGoods(Long skuId) {
         goodsRepository.deleteById(skuId);
+    }
+
+    @Override
+    public void incrHotScore(Long skuId) {
+        //定义key
+        String hotKey = "hotScore";
+
+        Double hotScore = redisTemplate.opsForZSet().incrementScore(hotKey, "skuId:" + skuId, 1);
+        System.out.println("调用热度排名");
+
+        //累计到10到es修改
+        if (hotScore % 10 == 0) {
+
+            //TODO 这样拿出值
+            Optional<Goods> optional = goodsRepository.findById(skuId);
+            Goods goods = optional.get();
+            goods.setHotScore(Math.round(hotScore));
+
+            //修改
+            goodsRepository.save(goods);
+
+        }
+
     }
 }

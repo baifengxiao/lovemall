@@ -1,5 +1,6 @@
 package cn.sc.love.item.service.impl;
 
+import cn.sc.love.client.ListFeignClient;
 import cn.sc.love.item.service.ItemService;
 import cn.sc.love.model.product.*;
 import cn.sc.love.product.client.ProductFeignClient;
@@ -34,6 +35,8 @@ public class ItemServiceImpl implements ItemService {
 
     @Autowired
     private ThreadPoolExecutor executor;
+    @Autowired
+    private ListFeignClient listFeignClient;
 
     @Override
     public HashMap<String, Object> getItem(Long skuId) {
@@ -122,8 +125,17 @@ public class ItemServiceImpl implements ItemService {
             }
         }, executor);
 
+        //更新商品热度
+        CompletableFuture<Void> incrHotScoreCompletableFuture = CompletableFuture.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                listFeignClient.incrHotScore(skuId);
+                System.out.println("热度排名");
+            }
+        }, executor);
+
 //多任务组合，所有的异步任务完成才是完成
-        CompletableFuture.allOf(skuInfoCompletableFuture, skuPriceCompletableFuture, categoryViewCompletableFuture, findSpuPosterBySpuIdCompletableFuture, attrListCompletableFuture, skuValueIdsMapCompletableFuture, skuValueIdsMapCompletableFuture).join();
+        CompletableFuture.allOf(skuInfoCompletableFuture, skuPriceCompletableFuture, categoryViewCompletableFuture, findSpuPosterBySpuIdCompletableFuture, attrListCompletableFuture, skuValueIdsMapCompletableFuture, skuValueIdsMapCompletableFuture,incrHotScoreCompletableFuture).join();
         return resultMap;
     }
 }
