@@ -35,8 +35,7 @@ public class ServiceProductApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         RBloomFilter<Object> bloomFilter = redissonClient.getBloomFilter(RedisConst.SKU_BLOOM_FILTER);
-        bloomFilter.tryInit(1001, 0.001);
+        bloomFilter.tryInit(1001,0.001);
 
     }
-
 }

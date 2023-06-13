@@ -45,12 +45,10 @@
         <redisson.version>3.15.3</redisson.version>
         <pool2.version>2.6.0</pool2.version>
         <httpclient.version>4.5.13</httpclient.version>
-        <minio.version>8.2.0</minio.version>
     </properties>
 
     <!--6.配置dependencyManagement锁定依赖的版本 并不是实际的依赖。-->
     <dependencyManagement>
-
         <dependencies>
             <!--            springcloud-->
             <dependency>
@@ -132,17 +130,7 @@
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
             </dependency>
-<!--            minio-->
-            <dependency>
-                <groupId>io.minio</groupId>
-                <artifactId>minio</artifactId>
-                <version>minio.version</version>
-            </dependency>
         </dependencies>
-
-
-
-
 
     </dependencyManagement>
 
