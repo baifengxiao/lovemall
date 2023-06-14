@@ -6,5 +6,5 @@ package cn.sc.love.gpt;
  **/
 public class Constants {
     //不是真实key,随便填的
-    public static final String OPENAPI_TOKEN = "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";
+    public static final String OPENAI_TOKEN = "df58zROZukVCyjZBSoErw";
 }
