@@ -206,7 +206,7 @@ public class ManagerServiceImpl implements ManagerService {
 
     @Override
     public List<BaseAttrValue> getAttrValueList(Long attrId) {
-        //TODO
+        //TODO 可能有问题，没理清
 
 //        //不严谨，可能出现进入查询，baseattrInfo刚好删除的情况
 //        QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
@@ -219,13 +219,17 @@ public class ManagerServiceImpl implements ManagerService {
         // 查询到最新的平台属性值集合数据放入平台属性中！
         baseAttrInfo.setAttrValueList(getAttrValueList(attrId));
 
+        if (attrId!=null){
+            //2，再用实体的id查数据（实体被删了就没有id，就不会查）
+            QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
+            wrapper.eq("attr_id", attrId);
+            List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(wrapper);
 
-        //2，再用实体的id查数据（实体被删了就没有id，就不会查）
-        QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
-        wrapper.eq("attr_id", attrId);
-        List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(wrapper);
+            return baseAttrValueList;
+        }
 
-        return baseAttrValueList;
+
+        return null;
     }
 
     @Override
