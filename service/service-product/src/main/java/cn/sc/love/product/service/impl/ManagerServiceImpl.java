@@ -108,9 +108,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id) {
+    public List<BaseAttrInfo> getAttrInfoList(Long category1Id, Long category2Id, Long category3Id) {
 
-        //TODO 可以优化
         return baseAttrInfoMapper.selectAttrInfoList(category1Id, category2Id, category3Id);
     }
 
@@ -168,21 +167,28 @@ public class ManagerServiceImpl implements ManagerService {
 
 
         //1判断是保存还是修改
+        //流程：先插入baseAttrInfo基本属性，再插入平台属性值
         if (baseAttrInfo.getId() != null) {
 
-            //修改    先插入baseAttrInfo基本属性，再插入平台属性
+            //id不为空，先修改baseAttrInfo
             baseAttrInfoMapper.updateById(baseAttrInfo);
 
-            //不采用修改，采用“先删除，重新添加”，因为修改操作复杂
+            //不采用修改，采用“先删除，重新添加”（因为修改操作复杂）
             //先删除
             QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
             wrapper.eq("attr_id", baseAttrInfo.getId());
             baseAttrValueMapper.delete(wrapper);
 
-        } else {
+            //再添加（添加和修改都要插入，把插入提取到后面）
 
-            //新增，直接添加
+        } else {
+            //新增
+
+            //id为空，先新增baseAttrInfo
             baseAttrInfoMapper.insert(baseAttrInfo);
+
+            //再添加baseAttrValue
+            //再添加（添加和修改都要插入，把插入提取到后面）
         }
 
         //都需要添加，写到外面
@@ -193,18 +199,14 @@ public class ManagerServiceImpl implements ManagerService {
                 baseAttrValue.setAttrId(baseAttrInfo.getId());
                 baseAttrValueMapper.insert(baseAttrValue);
             }
-
-
         }
 
-
-        //1.3注意加事务
-
-
+        //注意加事务
     }
 
     @Override
     public List<BaseAttrValue> getAttrValueList(Long attrId) {
+        //TODO
 
 //        //不严谨，可能出现进入查询，baseattrInfo刚好删除的情况
 //        QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
@@ -212,16 +214,16 @@ public class ManagerServiceImpl implements ManagerService {
 //        List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(wrapper);
 //        return baseAttrValueList;
 
-
         //1,先找到实体，
         BaseAttrInfo baseAttrInfo = baseAttrInfoMapper.selectById(attrId);
-        Long id = baseAttrInfo.getId();
+        // 查询到最新的平台属性值集合数据放入平台属性中！
+        baseAttrInfo.setAttrValueList(getAttrValueList(attrId));
+
 
         //2，再用实体的id查数据（实体被删了就没有id，就不会查）
         QueryWrapper<BaseAttrValue> wrapper = new QueryWrapper<>();
-        wrapper.eq("attr_id", id);
+        wrapper.eq("attr_id", attrId);
         List<BaseAttrValue> baseAttrValueList = baseAttrValueMapper.selectList(wrapper);
-
 
         return baseAttrValueList;
     }
@@ -584,7 +586,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    @GmallCache(prefix="categoryView:")
+    @GmallCache(prefix = "categoryView:")
     public BaseCategoryView getCategoryView(Long category3Id) {
 
         /**
@@ -637,14 +639,14 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    @GmallCache(prefix="spuSaleAttrListCheckBySku:")
+    @GmallCache(prefix = "spuSaleAttrListCheckBySku:")
     public List<SpuSaleAttr> getSpuSaleAttrListCheckBySku(Long skuId, Long spuId) {
 
         return spuSaleAttrMapper.getSpuSaleAttrListCheckBySku(skuId, spuId);
     }
 
     @Override
-    @GmallCache(prefix="skuValueIdsMap:")
+    @GmallCache(prefix = "skuValueIdsMap:")
     public Map getSkuValueIdsMap(Long spuId) {
         List<Map> mapList = skuSaleAttrValueMapper.getSkuValueIdsMap(spuId);
 
@@ -659,7 +661,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    @GmallCache(prefix="findSpuPosterBySpuId:")
+    @GmallCache(prefix = "findSpuPosterBySpuId:")
     public List<SpuPoster> findSpuPosterBySpuId(Long spuId) {
         QueryWrapper<SpuPoster> wrapper = new QueryWrapper<>();
         wrapper.eq("spu_id", spuId);
@@ -668,7 +670,7 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    @GmallCache(prefix="attrList:")
+    @GmallCache(prefix = "attrList:")
     public List<BaseAttrInfo> getAttrList(Long skuId) {
 
         List<BaseAttrInfo> baseAttrInfoList = baseAttrInfoMapper.getAttrList(skuId);
