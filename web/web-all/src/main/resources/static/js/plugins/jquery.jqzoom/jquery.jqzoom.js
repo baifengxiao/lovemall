@@ -9,182 +9,189 @@
 // mail: renzi.mrc@gmail.com
 //**************************************************************
 
-(function ($) {
+(function($){
 
-    $.fn.jqueryzoom = function (options) {
-        var settings = {
-            xzoom: 200,//zoomed width default width
-            yzoom: 200,//zoomed div default width
-            offset: 25,	//zoomed div default offset
-            position: "right",//zoomed div default position,offset position is to the right of the image
-            lens: 1, //zooming lens over the image,by default is 1;
-            preload: 1
-        };
+		$.fn.jqueryzoom = function(options){
+		var settings = {
+				xzoom: 200,//zoomed width default width
+				yzoom: 200,//zoomed div default width
+				offset: 25,	//zoomed div default offset
+				position: "right",//zoomed div default position,offset position is to the right of the image
+				lens:1, //zooming lens over the image,by default is 1;
+				preload: 1
+			};
 
-        if (options) {
-            $.extend(settings, options);
-        }
+			if(options) {
+				$.extend(settings, options);
+			}
 
-        var noalt = '';
-        $(this).hover(function () {
+		    var noalt='';
+		    $(this).hover(function(){
 
-            var imageLeft = this.offsetLeft;
-            var imageRight = this.offsetRight;
-            var imageTop = $(this).get(0).offsetTop;
-            var imageWidth = $(this).children('img').get(0).offsetWidth;
-            var imageHeight = $(this).children('img').get(0).offsetHeight;
-
-
-            noalt = $(this).children("img").attr("alt");
-
-            var bigimage = $(this).children("img").attr("jqimg");
-
-            $(this).children("img").attr("alt", '');
-
-            if ($("div.zoomdiv").get().length == 0) {
-
-                $(this).after("<div class='zoomdiv'><img class='bigimg' src='" + bigimage + "'/></div>");
+		    var imageLeft = this.offsetLeft;
+		    var imageRight = this.offsetRight;
+		    var imageTop =  $(this).get(0).offsetTop;
+		    var imageWidth = $(this).children('img').get(0).offsetWidth;
+		    var imageHeight = $(this).children('img').get(0).offsetHeight;
 
 
-                $(this).append("<div class='jqZoomPup'>&nbsp;</div>");
+            noalt= $(this).children("img").attr("alt");
 
+		    var bigimage = $(this).children("img").attr("jqimg");
+
+            $(this).children("img").attr("alt",'');
+
+		    if($("div.zoomdiv").get().length == 0){
+
+		    $(this).after("<div class='zoomdiv'><img class='bigimg' src='"+bigimage+"'/></div>");
+
+
+		    $(this).append("<div class='jqZoomPup'>&nbsp;</div>");
+
+		    }
+
+
+		    if(settings.position == "right"){
+
+            if(imageLeft + imageWidth + settings.offset + settings.xzoom > screen.width){
+
+            leftpos = imageLeft  - settings.offset - settings.xzoom;
+
+            }else{
+
+		    leftpos = imageLeft + imageWidth + settings.offset;
             }
+		    }else{
+		    leftpos = imageLeft - settings.xzoom - settings.offset;
+		    if(leftpos < 0){
 
+            leftpos = imageLeft + imageWidth  + settings.offset;
 
-            if (settings.position == "right") {
+		    }
 
-                if (imageLeft + imageWidth + settings.offset + settings.xzoom > screen.width) {
+		    }
 
-                    leftpos = imageLeft - settings.offset - settings.xzoom;
+		    $("div.zoomdiv").css({ top: imageTop,left: leftpos });
 
-                } else {
+		    $("div.zoomdiv").width(settings.xzoom);
 
-                    leftpos = imageLeft + imageWidth + settings.offset;
-                }
-            } else {
-                leftpos = imageLeft - settings.xzoom - settings.offset;
-                if (leftpos < 0) {
-
-                    leftpos = imageLeft + imageWidth + settings.offset;
-
-                }
-
-            }
-
-            $("div.zoomdiv").css({top: imageTop, left: leftpos});
-
-            $("div.zoomdiv").width(settings.xzoom);
-
-            $("div.zoomdiv").height(settings.yzoom);
+		    $("div.zoomdiv").height(settings.yzoom);
 
             $("div.zoomdiv").show();
 
-            if (!settings.lens) {
-                $(this).css('cursor', 'crosshair');
-            }
+            if(!settings.lens){
+              $(this).css('cursor','crosshair');
+			}
 
 
-            $(document.body).mousemove(function (e) {
 
 
-                mouse = new MouseEvent(e);
-
-                /*$("div.jqZoomPup").hide();*/
+				   $(document.body).mousemove(function(e){
 
 
-                var bigwidth = $(".bigimg").get(0).offsetWidth;
 
-                var bigheight = $(".bigimg").get(0).offsetHeight;
+                   mouse = new MouseEvent(e);
 
-                var scaley = 'x';
-
-                var scalex = 'y';
+                   /*$("div.jqZoomPup").hide();*/
 
 
-                if (isNaN(scalex) | isNaN(scaley)) {
+				    var bigwidth = $(".bigimg").get(0).offsetWidth;
 
-                    var scalex = (bigwidth / imageWidth);
+				    var bigheight = $(".bigimg").get(0).offsetHeight;
 
-                    var scaley = (bigheight / imageHeight);
+				    var scaley ='x';
+
+				    var scalex= 'y';
 
 
-                    $("div.jqZoomPup").width((settings.xzoom) / scalex);
+				    if(isNaN(scalex)|isNaN(scaley)){
 
-                    $("div.jqZoomPup").height((settings.yzoom) / scaley);
+				    var scalex = (bigwidth/imageWidth);
 
-                    if (settings.lens) {
-                        $("div.jqZoomPup").css('visibility', 'visible');
+				    var scaley = (bigheight/imageHeight);
+
+
+
+
+				    $("div.jqZoomPup").width((settings.xzoom)/scalex );
+
+		    		$("div.jqZoomPup").height((settings.yzoom)/scaley);
+
+                    if(settings.lens){
+                    $("div.jqZoomPup").css('visibility','visible');
+					}
+
+				   }
+
+
+
+                    xpos = mouse.x - $("div.jqZoomPup").width()/2 - imageLeft;
+
+                    ypos = mouse.y - $("div.jqZoomPup").height()/2 - imageTop ;
+
+                    if(settings.lens){
+
+                    xpos = (mouse.x - $("div.jqZoomPup").width()/2 < imageLeft ) ? 0 : (mouse.x + $("div.jqZoomPup").width()/2 > imageWidth + imageLeft ) ?  (imageWidth -$("div.jqZoomPup").width() + 8 )  : xpos;
+
+					ypos = (mouse.y - $("div.jqZoomPup").height()/2 < imageTop ) ? 0 : (mouse.y + $("div.jqZoomPup").height()/2  > imageHeight + imageTop  ) ?  (imageHeight - $("div.jqZoomPup").height() + 8  ) : ypos;
+
                     }
 
-                }
+
+                    if(settings.lens){
+
+                    $("div.jqZoomPup").css({ top: ypos,left: xpos });
+
+                    }
 
 
-                xpos = mouse.x - $("div.jqZoomPup").width() / 2 - imageLeft;
 
-                ypos = mouse.y - $("div.jqZoomPup").height() / 2 - imageTop;
+					scrolly = ypos;
 
-                if (settings.lens) {
+					$("div.zoomdiv").get(0).scrollTop = scrolly * scaley;
 
-                    xpos = (mouse.x - $("div.jqZoomPup").width() / 2 < imageLeft) ? 0 : (mouse.x + $("div.jqZoomPup").width() / 2 > imageWidth + imageLeft) ? (imageWidth - $("div.jqZoomPup").width() + 8) : xpos;
+					scrollx = xpos;
 
-                    ypos = (mouse.y - $("div.jqZoomPup").height() / 2 < imageTop) ? 0 : (mouse.y + $("div.jqZoomPup").height() / 2 > imageHeight + imageTop) ? (imageHeight - $("div.jqZoomPup").height() + 8) : ypos;
-
-                }
+					$("div.zoomdiv").get(0).scrollLeft = (scrollx) * scalex ;
 
 
-                if (settings.lens) {
+				    });
+		    },function(){
 
-                    $("div.jqZoomPup").css({top: ypos, left: xpos});
+               $(this).children("img").attr("alt",noalt);
+		       $(document.body).unbind("mousemove");
+		       if(settings.lens){
+		       $("div.jqZoomPup").remove();
+		       }
+		       $("div.zoomdiv").remove();
 
-                }
-
-
-                scrolly = ypos;
-
-                $("div.zoomdiv").get(0).scrollTop = scrolly * scaley;
-
-                scrollx = xpos;
-
-                $("div.zoomdiv").get(0).scrollLeft = (scrollx) * scalex;
-
-
-            });
-        }, function () {
-
-            $(this).children("img").attr("alt", noalt);
-            $(document.body).unbind("mousemove");
-            if (settings.lens) {
-                $("div.jqZoomPup").remove();
-            }
-            $("div.zoomdiv").remove();
-
-        });
+		    });
 
         count = 0;
 
-        if (settings.preload) {
+		if(settings.preload){
 
-            $('body').append("<div style='display:none;' class='jqPreload" + count + "'>sdsdssdsd</div>");
+		$('body').append("<div style='display:none;' class='jqPreload"+count+"'>sdsdssdsd</div>");
 
-            $(this).each(function () {
+		$(this).each(function(){
 
-                var imagetopreload = $(this).children("img").attr("jqimg");
+        var imagetopreload= $(this).children("img").attr("jqimg");
 
-                var content = jQuery('div.jqPreload' + count + '').html();
+        var content = jQuery('div.jqPreload'+count+'').html();
 
-                jQuery('div.jqPreload' + count + '').html(content + '<img src=\"' + imagetopreload + '\">');
+        jQuery('div.jqPreload'+count+'').html(content+'<img src=\"'+imagetopreload+'\">');
 
-            });
+		});
 
-        }
+		}
 
-    }
+		}
 
 })(jQuery);
 
 function MouseEvent(e) {
-    this.x = e.pageX
-    this.y = e.pageY
+this.x = e.pageX
+this.y = e.pageY
 
 
 }

@@ -13,21 +13,31 @@ import java.util.Map;
  * @author YPT
  * @create 2023-04-24-15:25
  */
+//后台管理service
 public interface ManagerService {
+    /**
+     * 各级分类单表查询
+     * @return
+     */
     List<BaseCategory1> getCategory1();
-
     List<BaseCategory2> getCategory2(Long category1Id);
-
     List<BaseCategory3> getCategory3(Long category2Id);
 
-    List<BaseAttrInfo> attrInfoList(Long category1Id, Long category2Id, Long category3Id);
+    /**
+     * 根据三级分类查询平台属性
+     * @param category1Id
+     * @param category2Id
+     * @param category3Id
+     * @return
+     */
+    List<BaseAttrInfo> getAttrInfoList(Long category1Id, Long category2Id, Long category3Id);
 
     void saveAttrInfo(BaseAttrInfo baseAttrInfo);
 
     List<BaseAttrValue> getAttrValueList(Long attrId);
 
 
-    IPage<SpuInfo> getSpuInfoPage( SpuInfo spuInfo,Page<SpuInfo> infoPage);
+    IPage<SpuInfo> getSpuInfoPage(SpuInfo spuInfo, Page<SpuInfo> infoPage);
 
     List<BaseSaleAttr> baseSaleAttrList();
 

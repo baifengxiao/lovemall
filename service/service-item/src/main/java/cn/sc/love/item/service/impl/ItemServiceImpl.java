@@ -38,6 +38,7 @@ public class ItemServiceImpl implements ItemService {
     @Autowired
     private ListFeignClient listFeignClient;
 
+
     @Override
     public HashMap<String, Object> getItem(Long skuId) {
         HashMap<String, Object> resultMap = new HashMap<>();
@@ -130,7 +131,7 @@ public class ItemServiceImpl implements ItemService {
             @Override
             public void run() {
                 listFeignClient.incrHotScore(skuId);
-                System.out.println("热度排名");
+
             }
         }, executor);
 

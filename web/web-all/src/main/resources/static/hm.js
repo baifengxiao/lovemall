@@ -81,24 +81,24 @@ var hm = {
         };
 
         // 用户事件行为埋点监控，由于部分页面使用vue异步渲染，由于页面加载先后问题，保证监控内容被完全监控，所以延迟监控
-        setTimeout('hm.actionStatistics()', 1000);
+        setTimeout('hm.actionStatistics()',1000);
 
         // 用户可视化区域展示埋点监控，由于部分页面使用vue异步渲染，由于页面加载先后问题，保证监控内容被完全监控，所以延迟监控
-        setTimeout('hm.displayStatistics()', 1000);
+        setTimeout('hm.displayStatistics()',1000);
     },
 
     /**
      * 获取上一个页面id
      * @returns {*|string}
      */
-    getPrePath: function () {
+    getPrePath: function() {
         let that = this
         var prePath = that.util.getCookie('prePath')
-        if (prePath == '' || prePath == 'undefined') {
+        if(prePath == '' || prePath == 'undefined') {
             prePath = ""
         }
         // 记录当前页面id
-        that.util.setCookie('prePath', window.page.page_id, 1 * 60 * 1000)
+        that.util.setCookie('prePath', window.page.page_id, 1*60*1000)
         return prePath
     },
 
@@ -134,8 +134,8 @@ var hm = {
      */
     actionStatistics: function () {
         let that = this
-        $("." + that.default.actionClass).each(function () {
-            $(this).click(function () {
+        $("." + that.default.actionClass).each(function(){
+            $(this).click(function(){
                 var action = JSON.parse($(this).attr(that.default.actionAttr).replaceAll("'", "\""))
                 action.ts = new Date().getTime()
 
@@ -147,7 +147,7 @@ var hm = {
     /**
      * 页面信息
      */
-    getPageData: function () {
+    getPageData: function() {
         var that = this
         var page = {
             "page_id": window.page.page_id,
@@ -190,8 +190,8 @@ var hm = {
         // });
         console.log(JSON.stringify(data))
         //图片上报
-        new Image().src = this.default.sendUrl + "?param=" + JSON.stringify(data) + "&v=" + Math.random();
-        new Image().src = "http://47.93.148.192:7070/log.gif?param=" + JSON.stringify(data) + "&v=" + Math.random();
+        new Image().src = this.default.sendUrl+"?param="+JSON.stringify(data)+"&v="+Math.random();
+        new Image().src = "http://47.93.148.192:7070/log.gif?param="+JSON.stringify(data)+"&v="+Math.random();
     },
 
     /**
@@ -214,7 +214,7 @@ var hm = {
          */
         getMid: function () {
             var mid = this.getCookie('MID');
-            if (mid != '' && mid != 'undefined') {
+            if(mid != '' && mid != 'undefined') {
                 return mid;
             } else {
                 var d = new Date().getTime();
@@ -226,7 +226,7 @@ var hm = {
                     d = Math.floor(d / 16);
                     return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
                 });
-                this.setCookie('MID', uuid, 365 * 24 * 60 * 60 * 1000);
+                this.setCookie('MID', uuid, 365*24*60*60*1000);
                 return uuid;
             }
         },
@@ -237,19 +237,19 @@ var hm = {
          */
         getIsNew: function () {
             var initDate = this.getCookie('INIT_DATE');
-            if (initDate != '' && initDate != 'undefined') {
+            if(initDate != '' && initDate != 'undefined') {
                 var nowDate = this.getNowFormatDate()
-                if (initDate != nowDate) {
+                if(initDate != nowDate) {
                     return "0";
                 }
             } else {
                 initDate = this.getNowFormatDate();
-                this.setCookie('INIT_DATE', initDate, 365 * 24 * 60 * 60 * 1000);
+                this.setCookie('INIT_DATE', initDate, 365*24*60*60*1000);
             }
             return "1";
         },
 
-        getNowFormatDate: function () {
+        getNowFormatDate: function() {
             var date = new Date();
             var seperator1 = "-";
             var year = date.getFullYear();
@@ -309,7 +309,7 @@ var hm = {
     }
 };
 
-(function () {
+(function(){
     //进入页面初始化
     hm.init();
 

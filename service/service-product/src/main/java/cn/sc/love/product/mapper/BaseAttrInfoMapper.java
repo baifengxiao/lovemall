@@ -11,15 +11,18 @@ import java.util.List;
  * @create 2023-04-25-6:34
  */
 @Mapper
+//平台属性Mapper
 public interface BaseAttrInfoMapper extends BaseMapper<BaseAttrInfo> {
 
     /**
      * 根据分类id查询平台属性集合
+     * 根据选择的分类id查询平台属性
      *
      * @param category1Id
      * @param category2Id
      * @param category3Id
      */
+    //TODO 可以优化
     List<BaseAttrInfo> selectAttrInfoList(Long category1Id, Long category2Id, Long category3Id);
 
 

@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=9; IE=8; IE=7; IE=EDGE">
-    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
     <title>我的优惠券列表</title>
     <link rel="icon" href="./img/favicon.ico">
 
-    <link rel="stylesheet" type="text/css" href="/css/all.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/pages-seckillOrder.css"/>
-    <link rel="stylesheet" type="text/css" href="/css/pages-myOrder.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/all.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pages-seckillOrder.css" />
+    <link rel="stylesheet" type="text/css" href="/css/pages-myOrder.css" />
 
     <div th:include="common/head :: head"></div>
 </head>
@@ -21,7 +21,7 @@
 <div th:include="common/header :: header"></div>
 
 <!--header-->
-<div id="account">
+<div id="account" >
     <div class="py-container">
         <div class="yui3-g home">
             <!--左侧列表-->
@@ -53,32 +53,20 @@
                                     <tbody>
                                     <tr>
                                         <td width="10%" class="center">
-                                            <span class="coupon-name"
-                                                  v-if="couponInfo.couponType == 'CASH'">现金券</span>
-                                            <span class="coupon-name"
-                                                  v-if="couponInfo.couponType == 'DISCOUNT'">折扣券</span>
+                                            <span class="coupon-name" v-if="couponInfo.couponType == 'CASH'">现金券</span>
+                                            <span class="coupon-name" v-if="couponInfo.couponType == 'DISCOUNT'">折扣券</span>
                                             <span class="coupon-name" v-if="couponInfo.couponType == 'FULL_REDUCTION'">满减卷</span>
                                             <span class="coupon-name" v-if="couponInfo.couponType == 'FULL_DISCOUNT'">满件打折卷</span>
                                         </td>
                                         <td width="20%" class="center">
-                                            <span class="condition"
-                                                  v-if="couponInfo.couponType == 'CASH'">现金券{{ couponInfo.benefitAmount
-                                                }}元</span>
-                                            <span class="condition"
-                                                  v-if="couponInfo.couponType == 'DISCOUNT'">折扣券{{ couponInfo.benefitDiscount
-                                                }}折</span>
-                                            <span class="condition"
-                                                  v-if="couponInfo.couponType == 'FULL_REDUCTION'">满{{ couponInfo.conditionAmount
-                                                }}减{{ couponInfo.benefitAmount }}元</span>
-                                            <span class="condition"
-                                                  v-if="couponInfo.couponType == 'FULL_DISCOUNT'">满{{ couponInfo.conditionNum
-                                                }}件打{{ couponInfo.benefitDiscount }}折</span>
+                                            <span class="condition" v-if="couponInfo.couponType == 'CASH'">现金券{{ couponInfo.benefitAmount }}元</span>
+                                            <span class="condition" v-if="couponInfo.couponType == 'DISCOUNT'">折扣券{{ couponInfo.benefitDiscount }}折</span>
+                                            <span class="condition" v-if="couponInfo.couponType == 'FULL_REDUCTION'">满{{ couponInfo.conditionAmount }}减{{ couponInfo.benefitAmount }}元</span>
+                                            <span class="condition" v-if="couponInfo.couponType == 'FULL_DISCOUNT'">满{{ couponInfo.conditionNum }}件打{{ couponInfo.benefitDiscount }}折</span>
                                         </td>
                                         <td width="43%" class="center">{{ couponInfo.rangeDesc }}</td>
                                         <td width="15%" class="center">{{ couponInfo.expireTime }}</td>
-                                        <td width="10%" class="center">
-                                            {{ couponInfo.couponStatus == 'NOT_USED' ? '未使用' : '已使用' }}
-                                        </td>
+                                        <td width="10%" class="center">{{ couponInfo.couponStatus == 'NOT_USED' ? '未使用' : '已使用' }}</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -128,7 +116,7 @@
                             <li class="yui3-u-1-4">
                                 <div class="list-wrap">
                                     <div class="p-img">
-                                        <img src="./img/_/itemlike01.png"/>
+                                        <img src="./img/_/itemlike01.png" />
                                     </div>
                                     <div class="attr">
                                         <em>DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本</em>
@@ -147,7 +135,7 @@
                             <li class="yui3-u-1-4">
                                 <div class="list-wrap">
                                     <div class="p-img">
-                                        <img src="./img/_/itemlike02.png"/>
+                                        <img src="./img/_/itemlike02.png" />
                                     </div>
                                     <div class="attr">
                                         <em>Apple苹果iPhone 6s/6s Plus 16G 64G 128G</em>
@@ -166,7 +154,7 @@
                             <li class="yui3-u-1-4">
                                 <div class="list-wrap">
                                     <div class="p-img">
-                                        <img src="./img/_/itemlike03.png"/>
+                                        <img src="./img/_/itemlike03.png" />
                                     </div>
                                     <div class="attr">
                                         <em>DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本</em>
@@ -185,7 +173,7 @@
                             <li class="yui3-u-1-4">
                                 <div class="list-wrap">
                                     <div class="p-img">
-                                        <img src="./img/_/itemlike04.png"/>
+                                        <img src="./img/_/itemlike04.png" />
                                     </div>
                                     <div class="attr">
                                         <em>DELL戴尔Ins 15MR-7528SS 15英寸 银色 笔记本</em>
@@ -301,20 +289,20 @@
 
         data: {
             pageNo: 1,
-            pageSize: 10,
+            pageSize:10,
             pages: 1,
-            data: {}
+            data:{}
         },
 
-        created() {
+        created () {
             this.fetchData(1)
         },
         methods: {
             fetchData(pageNo = 1) {
-                if (pageNo < 1) pageNo = 1
-                if (pageNo >= this.pages) pageNo = this.pages
+                if(pageNo < 1) pageNo = 1
+                if(pageNo >= this.pages) pageNo = this.pages
 
-                activity.getPageList(pageNo, this.pageSize).then(response => {
+                activity.getPageList(pageNo,this.pageSize).then(response => {
                     this.data = response.data.data.records
                     this.pages = response.data.data.pages
                 })

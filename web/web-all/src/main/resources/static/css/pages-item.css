@@ -21,7 +21,6 @@ a {
     margin: 15px 0;
     font-family: "微软雅黑"
 }
-
 .preview-wrap {
     width: 400px
 }
@@ -82,13 +81,8 @@ em {
     padding: 3px;
     color: #fff
 }
-
 .i-coupon {
-    background: #ffdedf;
-    border: 1px solid #df3033;
-    font-size: 12px;
-    color: #df3033;
-    padding: 3px 12px;
+    background:#ffdedf; border: 1px solid #df3033;font-size: 12px;color: #df3033; padding: 3px 12px;
 }
 
 .sku-name h4 {
@@ -278,21 +272,21 @@ ul.part-list li {
     line-height: 28px
 }
 
-.sui-nav.nav-tabs.tab-wraped > li {
+.sui-nav.nav-tabs.tab-wraped>li {
     width: 50%
 }
 
-.sui-nav.nav-tabs.tab-wraped > li > a {
+.sui-nav.nav-tabs.tab-wraped>li>a {
     padding: 11px;
     text-align: center
 }
 
-.sui-nav.nav-tabs.tab-wraped > li.active > a {
+.sui-nav.nav-tabs.tab-wraped>li.active>a {
     padding-top: 9px;
     border-top: 3px solid #e1251b
 }
 
-.intro .sui-nav.nav-tabs.tab-wraped > li.active > a {
+.intro .sui-nav.nav-tabs.tab-wraped>li.active>a {
     font-weight: 400;
     border: 0;
     padding-top: 12px;
@@ -387,7 +381,7 @@ ul.goods-intro li {
     background: #ededed
 }
 
-.intro .sui-nav.nav-tabs.tab-wraped > li {
+.intro .sui-nav.nav-tabs.tab-wraped>li {
     width: auto
 }
 
@@ -519,11 +513,9 @@ ul.goods-intro li {
 .sui-icon {
     color: #c81623
 }
-
 .icon-tb-favorfill {
     cursor: pointer;
 }
-
 .com-item .user-info .mini {
     list-style: none;
     float: left
@@ -536,7 +528,6 @@ ul.goods-intro li {
 .com-item .user-info .guige {
     color: #999
 }
-
 .com-item .user-info .guige .reply {
     color: #ff0909;
     margin: 10px;
@@ -544,15 +535,12 @@ ul.goods-intro li {
     padding-top: 15px;
     font-size: 14px;
 }
-
 .com-item .user-info .guige .reply .name {
     padding-right: 20px;
 }
-
 .com-item .user-info .guige .reply .time {
     color: #999
 }
-
 .com-item .user-info .operate {
     float: right
 }
@@ -577,14 +565,8 @@ i.icon-tb-wangfill {
 
 /** 优惠券 **/
 .i-coupon {
-    background: #ffdedf;
-    border: 1px solid #df3033;
-    font-size: 12px;
-    color: #df3033;
-    padding: 3px 12px;
-    margin-right: 12px;
+    background:#ffdedf; border: 1px solid #df3033;font-size: 12px;color: #df3033; padding: 3px 12px;margin-right: 12px;
 }
-
 .fix-width a {
     text-decoration: none;
 }
@@ -592,13 +574,9 @@ i.icon-tb-wangfill {
 div {
     display: block;
 }
-
 .coupon-li {
-    width: 100%;
-    height: 100%;
-    padding: 10px 10px;
+    width: 100%;height:100%; padding: 10px 10px;
 }
-
 .coupon-price {
     float: left;
     width: 180px;
@@ -609,7 +587,6 @@ div {
     padding-top: 12px;
     color: #74d2d4;
 }
-
 .token {
     position: relative;
     font-size: 16px;
@@ -619,14 +596,12 @@ div {
     left: 2px;
     font-weight: 400;
 }
-
 .coupon-name {
     font-size: 12px;
     font-family: "Microsoft Yahei";
     font-weight: normal;
     padding-left: 8px;
 }
-
 .coupon-price {
     float: left;
     width: 180px;
@@ -637,7 +612,6 @@ div {
     padding-top: 12px;
     color: #74d2d4;
 }
-
 .coupon-info {
     float: left;
     display: inline;
@@ -649,21 +623,17 @@ div {
     font-family: "Microsoft Yahei";
     position: relative;
 }
-
 .coupon-time {
     width: 190px;
 }
-
 .coupon-time {
     clear: both;
     color: #999;
     font-family: 'Microsoft Yahei';
 }
-
 .coupon-seal {
     background-position: -59px 0;
 }
-
 /*未使用*/
 .coupon-seal {
     position: absolute;
@@ -674,9 +644,8 @@ div {
     background: url(https://static.360buyimg.com/item/default/1.0.37/components/toolbar/i/coupon-new.png) no-repeat;
     _background: url(https://static.360buyimg.com/item/default/1.0.37/components/toolbar/i/coupon-new.png) no-repeat;
 }
-
 /*已使用*/
-.coupon-term {
+.coupon-term{
     position: absolute;
     right: 12px;
     bottom: 5px;
@@ -691,28 +660,23 @@ div {
 .preview-info {
     height: 20px;
 }
-
 .left-btns {
     float: left;
 }
-
 .left-btns a {
     cursor: pointer;
     margin-right: 10px;
 }
-
 .left-btns a {
     color: #666;
     text-decoration: none;
 }
-
 .left-btns a i {
     width: 14px;
     height: 13px;
     background-image: url(https://static.360buyimg.com/item/unite/1.0.105/components/default/preview/i/__sprite.png);
     background-position: -44px -40px;
 }
-
 .left-btns a i {
     display: inline-block;
     *display: inline;
@@ -720,14 +684,12 @@ div {
     vertical-align: middle;
     margin-right: 5px;
 }
-
 .left-btns .share i {
     width: 15px;
     height: 14px;
     background-image: url(https://static.360buyimg.com/item/unite/1.0.105/components/default/preview/i/__sprite.png);
     background-position: -45px -24px;
 }
-
 .left-btns .compare i {
     width: 15px;
     height: 16px;
