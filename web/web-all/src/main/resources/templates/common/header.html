@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
 
@@ -13,11 +13,8 @@
                 <div class="shortcut">
                     <ul class="fl">
                         <li class="f-item">尚品汇欢迎您！</li>
-                        <li v-if="userInfo.nickName == ''" class="f-item">请<span><a href="javascript:"
-                                                                                     @click="login()">登录</a></span>　<span><a
-                                href="#">免费注册</a></span></li>
-                        <li v-if="userInfo.nickName != ''" class="f-item"><span>{{userInfo.nickName}}</span>　<span><a
-                                href="javascript:" @click="logout()">退出</a></span></li>
+                        <li  v-if="userInfo.nickName == ''" class="f-item">请<span><a href="javascript:" @click="login()">登录</a></span>　<span><a href="#">免费注册</a></span></li>
+                        <li  v-if="userInfo.nickName != ''" class="f-item"><span>{{userInfo.nickName}}</span>　<span><a href="javascript:" @click="logout()">退出</a></span></li>
                     </ul>
                     <div class="fr typelist">
                         <ul class="types">
@@ -32,8 +29,7 @@
                             </li>
                             <li class="f-item">
                                 <span>
-                                    <a href="http://activity.gmall.com/couponInfo.html"
-                                       target="_blank">我的优惠券列表</a>
+                                    <a href="http://activity.gmall.com/couponInfo.html" target="_blank">我的优惠券列表</a>
                                 </span>
                             </li>
                             <li class="f-item">
@@ -76,10 +72,8 @@
                             <form action="" class="sui-form form-inline">
                                 <!--searchAutoComplete-->
                                 <div class="input-append">
-                                    <input id="keyword" type="text" v-model="keyword"
-                                           class="input-error input-xxlarge"/>
-                                    <button class="sui-btn btn-xlarge btn-danger" @click="search()" type="button">搜索
-                                    </button>
+                                    <input id="keyword" type="text" v-model="keyword" class="input-error input-xxlarge" />
+                                    <button class="sui-btn btn-xlarge btn-danger" @click="search()" type="button">搜索</button>
                                 </div>
                             </form>
                         </div>
@@ -111,19 +105,19 @@
             methods: {
                 showInfo() {
                     // debugger
-                    if (auth.getUserInfo()) {
+                    if(auth.getUserInfo()) {
                         this.userInfo = auth.getUserInfo()
-                        console.log("--------" + this.userInfo.nickName)
+                        console.log("--------"+this.userInfo.nickName)
                     }
                 },
 
                 search() {
-                    if (this.keyword == null) this.keyword = ''
+                    if(this.keyword == null) this.keyword = ''
                     window.location.href = 'http://list.gmall.com/list.html?keyword=' + this.keyword
                 },
 
                 login() {
-                    window.location.href = 'http://passport.gmall.com/login.html?originUrl=' + window.location.href
+                    window.location.href = 'http://passport.gmall.com/login.html?originUrl='+window.location.href
                 },
 
                 logout() {

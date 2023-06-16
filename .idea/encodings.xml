@@ -25,6 +25,7 @@
     <file url="file://$PROJECT_DIR$/web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/web/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/web/web-all/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../../maven-repository/org/springframework/boot/spring-boot-starter-parent/2.3.6.RELEASE/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>
