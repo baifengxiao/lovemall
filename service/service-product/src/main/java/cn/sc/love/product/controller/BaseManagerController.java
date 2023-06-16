@@ -16,13 +16,13 @@ import java.util.List;
  */
 @Api(tags = "商品分类接口")
 @RestController
-@RequestMapping("/admin/product")
-public class BaseCategoryController {
+@RequestMapping("admin/product")
+public class BaseManagerController {
 
     @Autowired
     private ManagerService managerService;
 
-    @GetMapping("/getCategory1")
+    @GetMapping("getCategory1")
     @ApiOperation("查询一级分类")
     public Result getCategory1() {
 
@@ -31,7 +31,7 @@ public class BaseCategoryController {
 
     }
 
-    @GetMapping("/getCategory2/{category1Id}")
+    @GetMapping("getCategory2/{category1Id}")
     @ApiOperation("查询二级分类")
     public Result getCategory2(@PathVariable Long category1Id) {
 
@@ -39,7 +39,7 @@ public class BaseCategoryController {
         return Result.ok(baseCategory2List);
     }
 
-    @GetMapping("/getCategory3/{category2Id}")
+    @GetMapping("getCategory3/{category2Id}")
     @ApiOperation("查询三级分类")
     public Result getCategory3(@PathVariable Long category2Id) {
 
@@ -47,12 +47,11 @@ public class BaseCategoryController {
         return Result.ok(baseCategory3List);
     }
 
-    @GetMapping("/attrInfoList/{category1Id}/{category2Id}/{category3Id}")
-    @ApiOperation("根据三级分类查询平台属性")
-    public Result attrInfoList(@PathVariable Long category1Id, @PathVariable Long category2Id, @PathVariable Long category3Id) {
+    @GetMapping("attrInfoList/{category1Id}/{category2Id}/{category3Id}")
+    @ApiOperation("查询三级分类下的平台属性")
+    public Result getAttrInfoList(@PathVariable Long category1Id, @PathVariable Long category2Id, @PathVariable Long category3Id) {
 
-        List<BaseAttrInfo> baseAttrInfoList = managerService.attrInfoList(category1Id, category2Id, category3Id);
-
+        List<BaseAttrInfo> baseAttrInfoList = managerService.getAttrInfoList(category1Id, category2Id, category3Id);
         return Result.ok(baseAttrInfoList);
 
     }
@@ -67,7 +66,7 @@ public class BaseCategoryController {
     }
 
     @GetMapping("/getAttrValueList/{attrId}")
-    @ApiOperation("根据平台属性id获取到平台属性值集合")
+    @ApiOperation("根据平台属性id获取平台属性值集合")
     public Result getAttrValueList(@PathVariable Long attrId) {
 
         List<BaseAttrValue> baseAttrValueList = managerService.getAttrValueList(attrId);
