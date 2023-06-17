@@ -3,13 +3,14 @@ package cn.sc.love.list.controller;
 import cn.sc.love.common.result.Result;
 import cn.sc.love.list.service.SearchService;
 import cn.sc.love.model.list.Goods;
+import cn.sc.love.model.list.SearchParam;
+import cn.sc.love.model.list.SearchResponseVo;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.io.IOException;
 
 /**
  * @Author yupengtao
@@ -62,6 +63,18 @@ public class ListApiController {
         //建立mapping
         restTemplate.putMapping(Goods.class);
         return Result.ok();
+    }
+
+    /**
+     * 搜索商品
+     * @param searchParam
+     * @return
+     * @throws IOException
+     */
+    @PostMapping
+    public Result list(@RequestBody SearchParam searchParam) throws IOException {
+        SearchResponseVo response = searchService.search(searchParam);
+        return Result.ok(response);
     }
 
 }
