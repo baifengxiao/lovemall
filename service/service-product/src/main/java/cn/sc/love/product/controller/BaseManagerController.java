@@ -51,7 +51,7 @@ public class BaseManagerController {
     @ApiOperation("查询三级分类下的平台属性")
     public Result getAttrInfoList(@PathVariable Long category1Id, @PathVariable Long category2Id, @PathVariable Long category3Id) {
 
-        List<BaseAttrInfo> baseAttrInfoList = managerService.getAttrInfoList(category1Id, category2Id, category3Id);
+        List<BaseAttrInfo> baseAttrInfoList = managerService.attrInfoList(category1Id, category2Id, category3Id);
         return Result.ok(baseAttrInfoList);
 
     }

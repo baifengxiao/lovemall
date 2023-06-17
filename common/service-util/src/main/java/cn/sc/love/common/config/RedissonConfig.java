@@ -1,7 +1,5 @@
 package cn.sc.love.common.config;
 
-
-
 import lombok.Data;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

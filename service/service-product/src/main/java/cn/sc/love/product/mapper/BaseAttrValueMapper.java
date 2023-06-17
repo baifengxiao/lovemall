@@ -9,6 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * @create 2023-04-25-9:00
  */
 @Mapper
-//平台属性值mapper
 public interface BaseAttrValueMapper extends BaseMapper<BaseAttrValue> {
 }
