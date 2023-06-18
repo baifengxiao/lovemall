@@ -27,7 +27,8 @@
         <module>web</module>
 <!--        <module>common/web-util</module>-->
         <module>chatgpt</module>
-<!--        <module>service/service-list</module>-->
+        <module>service/service-user</module>
+        <!--        <module>service/service-list</module>-->
 <!--        <module>service-client/service-list-client</module>-->
     </modules>
 
