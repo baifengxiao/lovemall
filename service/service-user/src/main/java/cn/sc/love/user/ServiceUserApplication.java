@@ -1,4 +1,4 @@
-package cn.sc.user;
+package cn.sc.love.user;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
