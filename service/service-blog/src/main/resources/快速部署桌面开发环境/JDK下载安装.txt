@@ -1,0 +1,7 @@
+以JDK8为例：
+下载地址
+https://www.oracle.com/java/technologies/javase/javase8-archive-downloads.html
+
+安装目录：
+D:\SDK_bfx\Java\jdk1.8.0_201\
+
