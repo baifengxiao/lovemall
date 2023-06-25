@@ -3,13 +3,13 @@ maven官网
 https://maven.apache.org/
 
 安装根目录
-D:\SDK_bfx\maven\apache-maven-3.9.2
+D:\SDK_YPT\apache-maven-3.9.2
 
 Maven基本配置
 
 1.设置本地仓库
 
-D:\SDK_bfx\Data_bfx\maven-repository
+D:\SDK_YPT\Data_YPT\maven-repository
 
 2.设置镜像服务器（以阿里云为例）
 <mirrors>
