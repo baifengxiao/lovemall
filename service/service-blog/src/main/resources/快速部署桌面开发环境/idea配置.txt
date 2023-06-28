@@ -1,4 +1,0 @@
-idea64.exe.vmoptions
--Xms512m
--Xmx1500m
--XX:ReservedCodeCacheSize=512m
