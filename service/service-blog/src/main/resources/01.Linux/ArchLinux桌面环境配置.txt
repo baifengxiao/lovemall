@@ -1,0 +1,97 @@
+1.grup等待时间设置为0
+sudo nano /etc/default/grub
+1.1设置
+GRUB_TIMEOUT=0
+1.2.使用配置
+sudo grub-mkconfig -o /boot/grub/grub.cfg
+
+2.安装常用软件
+    chrome：
+yay -S google-chrome
+
+百度网盘：
+yay -S baidunetdisk
+
+   qq音乐：
+
+yay -S qqmusic-bin
+
+qq
+yay -S com.qq.im.deepin
+调整参数
+env WINEPREFIX=$HOME/.deepinwine/Deepin-QQ deepin-wine5 winecfg
+
+    微信
+yay -S deepin-wine-wechat
+env WINEPREFIX=$HOME/.deepinwine/Deepin-WeChat deepin-wine5 winecfg
+
+WPS
+AUR – wps-office-cn 提供了安装脚本
+
+mkdir -p ~/Software/AUR
+cd ~/Software/AUR
+git clone https://aur.archlinux.org/wps-office-cn.git
+cd wps-office-cn
+makepkg -si
+解决字体缺失的问题
+下载wps字体文件后，解压并进入目录中，继续执行：
+
+sudo cp * /usr/share/fonts
+执行以下命令,生成字体的索引信息：
+
+sudo mkfontscale
+
+sudo mkfontdir
+
+ 运行fc-cache命令更新字体缓存。
+
+sudo fc-cache
+
+ 重启wps即可，字体缺失的提示不再出现。
+
+
+sudo pacman -S zsh
+sudo pacman -S wget
+
+安装ohmyzsh
+
+wget https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh -O - | sh
+
+如果每次执行都失败提示被拒绝连接就先改一下hosts文件
+
+sudo nano /etc/hosts
+
+# GitHub Start
+151.101.64.133 raw.githubusercontent.com
+# GitHub End
+
+5.2.1安装zsh-syntax-highlighting：提供命令高亮
+
+git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+5.2.2安装autosuggestions：记住你之前使用过的命令
+
+git clone git://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+
+
+
+5.2.4 启用所有插件
+
+nano ~/.zshrc
+将plugins=(git)改为:
+
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions sudo extract)
+这个sudo是ohmyzsh自带的插件，功能是在你输入的命令的开头添加sudo ，方法是双击Esc
+
+extract也是自带插件，不用再去记不同文件的解压命令，方法是extract +你要解压的文件名
+
+保存退出之后，手动修改konsole的默认bash为zsh：（右键Konsole -> 编辑当前方案）
+
+
+打开konsole执行：
+
+source ~/.zshrc
+
+安装screenfetch
+sudo pacman -S screenfetch
+screenfetch

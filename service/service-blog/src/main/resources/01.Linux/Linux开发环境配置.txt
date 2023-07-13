@@ -1,0 +1,109 @@
+查看java安装软件
+rpm -qa|grep java    
+删除openjdk
+rpm -e --nodeps java-1.8.0-openjdk-1.8.0.242.b08-0.el8_1.aarch64   
+
+下载解压jdk
+
+配置环境变量
+sudo nano /etc/profile
+
+
+export JAVA_HOME=/root/SDE/jdk1.8.0_301  #jdk安装目录
+
+export JRE_HOME=${JAVA_HOME}/jre
+
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib:$CLASSPATH
+
+export JAVA_PATH=${JAVA_HOME}/bin:${JRE_HOME}/bin
+
+export PATH=$PATH:${JAVA_PATH}
+
+让命令立即生效
+source /etc/profile
+
+创建idea桌面图标：
+gedit start-mind-master.desktop
+
+# 每个desktop文件都已这个标签开始，说明这是一个Desktop Entry 文件.
+[Desktop Entry]
+# 标明Desktop Entry的版本(可选).
+Version=1.0
+# desktop的类型(必选),常见值有“Application”和“Link”.
+Type=Application
+# 程序名称(必须)
+Name=idea
+# 程序的启动命令(必选),可以带参数运行
+Exec=/home/yupengtao/SDE/idea-IU-212.4746.92/bin/idea.sh
+# 设置快捷方式的图标(可选).
+Icon=/home/yupengtao/SDE/idea-IU-212.4746.92/bin/idea.svg
+# 是否在终端中运行(可选),当Type为Application,此项有效.
+Terminal=false
+# 注明在菜单栏中显示的类别(可选)
+Categories=Application
+
+cd Desktop
+chmod 744 idea.desktop
+
+mysql
+sudo pacman -S mysql
+sudo pacman -S mysql-workbench
+初始化
+sudo mysqld --initialize --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+获取初始化密码
+avra;gM5.Hae
+sudo systemctl start mysqld.service
+sudo systemctl enable mysqld.service
+mysql -uroot -p
+输入初始随机密码
+
+安装tomcat
+添加
+export CATALINA_HOME=/home/yupengtao/SDE/apache-tomcat-8.5.69                    #tomcat环境变量
+修改
+export PATH=$PATH:${JAVA_HOME}/bin:${JAVA_PATH}:${CATALINA_HOME}/bin
+
+验证是否安装成功
+startup.sh
+sudo pacman -S lsof
+lsof -i:8080
+
+
+maven
+下载并解压
+sudo nano /etc/profile
+
+配置环境变量
+export MAVEN_HOME=/home/yupengtao/SDE/maven/apache-maven-3.8.1
+
+export PATH=$PATH:${JAVA_HOME}/bin:${JAVA_PATH}:${CATALINA_HOME}/bin:${MAVEN_HOME}/bin
+
+
+source /etc/profile
+
+
+验证maven安装和配置成功（如下图所示）：
+
+mvn -v
+
+
+修改maven的本地仓库，用vi打开settings.xml，按【insert】进行编辑
+
+nano /home/yupengtao/SDE/maven/apache-maven-3.8.1/conf/settings.xml
+
+
+
+加入以下代码，本地仓库位置：
+
+<localRepository>/home/yupengtao/SDE/maven/repo</localRepository>
+
+修改maven的远程仓库地址，这里用阿里云 (下载快)，也可默认直接保存：
+
+<mirror>
+        <id>nexus-aliyun</id>
+        <mirrorOf>*</mirrorOf>
+        <name>Nexus aliyun</name>
+        <url>http://maven.aliyun.com/nexus/content/groups/public</url>
+</mirror>
+
+
