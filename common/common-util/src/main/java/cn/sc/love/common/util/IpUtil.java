@@ -8,7 +8,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 
 /**
- * 获取ip地址
+ * 获取ip地址,自己封装的工具类
  */
 public class IpUtil {
 
