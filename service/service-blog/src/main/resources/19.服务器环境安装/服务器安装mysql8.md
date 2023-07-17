@@ -1,23 +1,29 @@
 # Huawei Cloud EulerOS 2.0服务器安装mysql8.0.34
 
-### 1.下载（519.8M那个）
+### 1.下载（519.8M那个）并上传到安装目录
 
-![image-20230725074332695](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20230725074332695.png)
+这里安装目录是 :
+
+/usr/local/mysql
+
+https://dev.mysql.com/downloads/file/?id=520293
+
+![image-20230801221543085](https://yuling-1318764606.cos.ap-chengdu.myqcloud.com/blog/image-20230801221543085.png)
 
 ### 2.创建目录并解压
 
 ```
-#创建目录
-mkdir /usr/local/SDK_YPT/mysql
+#创建安装目录
+mkdir -p /usr/local/mysql
 
 #进入安装目录
-cd  /usr/local/SDK_YPT/mysql/
+cd  /usr/local/mysql/
 
-#解压文件
+#解压文件（活用tap 自动补全）
 tar -zxvf mysql-8.0.34-linux-glibc2.28-x86_64.tar.gz
 
 #并重命名
-mv mysql-8.0.34-linux-glibc2.28-x86_64.tar.gz mysql-8.0.34
+ mv mysql-8.0.34-linux-glibc2.28-x86_64/ mysql-8.0.34
 ```
 
 ### 3.添加mysql用户及对应的组　
@@ -30,10 +36,10 @@ groupadd mysql
 useradd -r -g mysql mysql
 
 #创建data目录
-mkdir /usr/local/SDK_YPT/mysql/data
+mkdir /usr/local/mysql/data
 
 #将/usr/local/mysql/的所有者及所属组改为mysql
-chown -R mysql.mysql /usr/local/SDK_YPT/mysql/
+chown -R mysql.mysql /usr/local/mysql/
 ```
 
 ### 4.创建配置文件
@@ -45,9 +51,9 @@ vim /etc/my.cnf
 ```cnf
 [mysqld]
 ## 基础位置
-basedir = /usr/local/SDK_YPT/mysql/mysql-8.0.34
+basedir = /usr/local/mysql/mysql-8.0.34
 ## 数据存放位置
-datadir = /usr/local/SDK_YPT/mysql/data
+datadir = /usr/local/mysql/data
 ## 端口
 port = 10241
   
@@ -55,29 +61,29 @@ socket = /tmp/mysql.sock
 ## 字符集
 character-set-server=utf8
   
-log-error = /usr/local/SDK_YPT/mysql/data/mysqld.log
-pid-file = /usr/local/SDK_YPT/mysql/data/mysqld.pid
+log-error = /usr/local/mysql/data/mysqld.log
+pid-file = /usr/local/mysql/data/mysqld.pid
 
 ```
 
 ### 5.进行初始化
 
 ```
-/usr/local/SDK_YPT/mysql/mysql-8.0.34/bin/mysqld --initialize --user=mysql --basedir=/usr/local/SDK_YPT/mysql/mysql-8.0.34 --datadir=/usr/local/SDK_YPT/mysql/data/ 
+/usr/local/mysql/mysql-8.0.34/bin/mysqld --initialize --user=mysql --basedir=/usr/local/mysql/mysql-8.0.34 --datadir=/usr/local/mysql/data/ 
 #在日志文件中找到密码
-cat /usr/local/SDK_YPT/mysql/data/mysqld.log
+cat /usr/local/mysql/data/mysqld.log
 ```
 
 ###  6.执行启动命令
 
 ```
-/usr/local/SDK_YPT/mysql/mysql-8.0.34/support-files/mysql.server start
+/usr/local/mysql/mysql-8.0.34/support-files/mysql.server start
 ```
 
 ###  7.添加全局mysql环境变量
 
 ```
-echo 'export PATH="$PATH:/usr/local/SDK_YPT/mysql/mysql-8.0.34/bin"' >>  /etc/profile 
+echo 'export PATH="$PATH:/usr/local/mysql/mysql-8.0.34/bin"' >>  /etc/profile 
 
 #使立即生效
 source /etc/profile
@@ -129,7 +135,7 @@ FLUSH PRIVILEGES;
 
 ```
 ## 复制到自启动路径下
-cp /usr/local/SDK_YPT/mysql/mysql-8.0.34/support-files/mysql.server /etc/init.d/mysqld
+cp /usr/local/mysql/mysql-8.0.34/support-files/mysql.server /etc/init.d/mysqld
 ## 显示服务列表
 chkconfig --list
 ## 添加服务
@@ -153,13 +159,13 @@ chkconfig --level 345 mysqld on
 1. 删除测试数据库：MySQL安装后，可能会自带一些测试数据库，如`test`，`mysql`等。这些数据库对于生产环境没有必要，可以将其删除。
 
    ```
-   sqlCopy code
+   
    DROP DATABASE IF EXISTS test;
    ```
 
 2. 移除匿名用户：MySQL默认创建了一个允许匿名用户访问的账户，为了安全起见，应该将其删除。
 
    ```
-   sqlCopy code
+   
    DELETE FROM mysql.user WHERE User='';
    ```
